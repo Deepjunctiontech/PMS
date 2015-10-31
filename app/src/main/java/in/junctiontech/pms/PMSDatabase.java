@@ -2,24 +2,30 @@ package in.junctiontech.pms;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import in.junctiontech.pms.employee.Employee;
 import in.junctiontech.pms.employee.EmployeeLocation;
-import static in.junctiontech.pms.PMSDataBaseConstant.*;
+
+import static in.junctiontech.pms.PMSDataBaseConstant.EMPLOYEE_LOCATION_BATTERY_LEVEL;
+import static in.junctiontech.pms.PMSDataBaseConstant.EMPLOYEE_LOCATION_DATE;
+import static in.junctiontech.pms.PMSDataBaseConstant.EMPLOYEE_LOCATION_LATITUDE;
+import static in.junctiontech.pms.PMSDataBaseConstant.EMPLOYEE_LOCATION_LONGITUDE;
+import static in.junctiontech.pms.PMSDataBaseConstant.EMPLOYEE_LOCATION_PROVIDER_NAME;
+import static in.junctiontech.pms.PMSDataBaseConstant.EMPLOYEE_LOCATION_TABLE_NAME;
+import static in.junctiontech.pms.PMSDataBaseConstant.EMPLOYEE_LOCATION_TIME;
+import static in.junctiontech.pms.PMSDataBaseConstant.EMPLOYEE_LOCATION_VERSION_NUMBER;
 
 
 /**
  * Created by Junction Software on 14-Oct-15.
+ * published on github 31-oct-2015
  */
 public class PMSDatabase extends SQLiteOpenHelper {
     private static PMSDatabase pmsDatabase = null;
