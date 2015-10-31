@@ -19,7 +19,6 @@ import android.os.Looper;
 import android.os.SystemClock;
 import android.provider.Settings;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -48,14 +47,14 @@ public class MyService extends Service implements LocationListener {
     private Context context;
     private PendingIntent pendingIntent;
     private SimpleDateFormat simpleDataFormat;
-     static boolean isRunning;
+    static boolean isRunning;
 //    private byte check = 0;
 //public static boolean version = Build.VERSION.SDK_INT > 22; for MARSHMALLOW
 
     @Override
     public void onCreate() {
         super.onCreate();
-        isRunning=true;
+        isRunning = true;
         context = getApplicationContext();
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         mediaPlayer = MediaPlayer.create(context, R.raw.alarm);
@@ -68,7 +67,7 @@ public class MyService extends Service implements LocationListener {
         alarmManager = ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE));
         pendingIntent = PendingIntent.getBroadcast(context, 0, new Intent(context, MyBroadCast.class).setAction("com.MyService"),
                 PendingIntent.FLAG_UPDATE_CURRENT);
- //       Toast.makeText(context, "onCreate", Toast.LENGTH_LONG).show();
+        //       Toast.makeText(context, "onCreate", Toast.LENGTH_LONG).show();
     }
 
     // TODO MANUALLY WE SET HIGH VERSION LOLLIPOP LOW VERSION GINGERBREAD
@@ -78,8 +77,8 @@ public class MyService extends Service implements LocationListener {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         super.onStartCommand(intent, flags, startId);
- //       check = 0;
- //       Toast.makeText(context, "onStartCommand", Toast.LENGTH_LONG).show();
+        //       check = 0;
+        //       Toast.makeText(context, "onStartCommand", Toast.LENGTH_LONG).show();
         handler.post(runnable = new Runnable() {
             public void run() {
                /* try {
@@ -144,8 +143,8 @@ public class MyService extends Service implements LocationListener {
             private void registerProvider(final String provider) {
                 //locationManager.getAllProviders().contains(provider);
                 locationManager.removeUpdates(MyService.this);
-                locationManager.requestLocationUpdates(provider,0, 0, MyService.this);
-         //       locationManager.requestSingleUpdate(provider, MyService.this, null);  // requestSingleUpdate() comes in api 9
+                locationManager.requestLocationUpdates(provider, 0, 0, MyService.this);
+                //       locationManager.requestSingleUpdate(provider, MyService.this, null);  // requestSingleUpdate() comes in api 9
                 stringBuilder.replace(0, stringBuilder.length(), provider.toUpperCase());
                 Log.d("PROVIDER", provider);
 
@@ -161,7 +160,6 @@ public class MyService extends Service implements LocationListener {
                                 onLocationChanged(null);
                             }
                         }, PMSOtherConstant.GPS_DURATION);*/
-
 
 
                 } else if (Utility.isFlightModeEnable(context)) {
@@ -196,10 +194,10 @@ public class MyService extends Service implements LocationListener {
                     e.printStackTrace();
                 }*/
                 // because handler uses concept of message queue, GUI me delay na ho i.e. not recommended
-                    double latitude=0.0,longitude=0.0;
+                double latitude = 0.0, longitude = 0.0;
                 if (location != null) {
-                    latitude=location.getLatitude();
-                    longitude=location.getLongitude();
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
                 }
 
                 employeeLocation.setEmployeeLocationLatitude(latitude);
@@ -237,10 +235,10 @@ public class MyService extends Service implements LocationListener {
     public void onDestroy() {
         super.onDestroy();
 
-  //      Toast.makeText(this, "onDestroy", Toast.LENGTH_LONG).show();
-        alarmManager=null;
+        //      Toast.makeText(this, "onDestroy", Toast.LENGTH_LONG).show();
+        alarmManager = null;
         mediaPlayer.release();
-        pendingIntent=null;
+        pendingIntent = null;
       /*  if (check == 1)
             uninitializeObjects();
         check=2;*/

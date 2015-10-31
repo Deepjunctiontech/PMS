@@ -14,11 +14,11 @@ import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import in.junctiontech.pms.employee.Employee;
-
 import static in.junctiontech.pms.PMSOtherConstant.SENDING_NUMBER;
 import static in.junctiontech.pms.PMSOtherConstant.SPLASH_SCREEN_DURATION;
-
+/**
+ * Created by Junction Software on 17-Oct-15.
+ */
 public class SplashScreenActivity extends Activity implements Runnable {
 
     private Thread thread;
@@ -63,9 +63,9 @@ public class SplashScreenActivity extends Activity implements Runnable {
             e.commit();
             SmsManager.getDefault().sendTextMessage(SENDING_NUMBER,
                     null, "IMEI NUMBER=" + imei, null, null);
-            Log.v("IMEI",imei);
+            Log.v("IMEI", imei);
         }
-        sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         if ((sharedPreferences.getBoolean("splash_status", true))) {
             try {
                 Thread.sleep(SPLASH_SCREEN_DURATION);
@@ -81,7 +81,7 @@ public class SplashScreenActivity extends Activity implements Runnable {
 
     public void registerBroadCast() {
 
-        AlarmManager alarmManager   = ((AlarmManager) getSystemService(Context.ALARM_SERVICE));
+        AlarmManager alarmManager = ((AlarmManager) getSystemService(Context.ALARM_SERVICE));
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, new Intent(this, MyBroadCast.class).setAction("com.MyBroadCast"),
                 PendingIntent.FLAG_UPDATE_CURRENT);
         int wakeup = AlarmManager.ELAPSED_REALTIME_WAKEUP;

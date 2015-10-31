@@ -1,12 +1,12 @@
 package in.junctiontech.pms;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,21 +47,19 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        Class selected=null;
+        Class selected = null;
         if (id == R.id.action_settings) {
-            selected=SettingActivity.class;
+            selected = SettingActivity.class;
 
-        }else if(id==R.id.action_aboutus) {
-            selected=AboutUsActivity.class;
+        } else if (id == R.id.action_aboutus) {
+            selected = AboutUsActivity.class;
+        } else if (id == R.id.action_contactus) {
+            selected = ContactUsActivity.class;
+        } else if (id == R.id.action_help) {
+            selected = HelpActivity.class;
         }
-        else if(id==R.id.action_contactus) {
-            selected=ContactUsActivity.class;
-        }
-        else if(id==R.id.action_help){
-            selected=HelpActivity.class;
-        }
-        if(selected!=null)
-            startActivity(new Intent(this,selected));
+        if (selected != null)
+            startActivity(new Intent(this, selected));
 
         return super.onOptionsItemSelected(item);
     }
@@ -75,13 +73,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id) {
             case R.id.project:
-                 //startActivity(new Intent(this, Appointment.class));
+                //startActivity(new Intent(this, Appointment.class));
                 break;
             case R.id.expense:
-                 startActivity(new Intent(this, ExpenseActivity.class));
+                startActivity(new Intent(this, ExpenseActivity.class));
                 break;
             case R.id.receipt:
-                 startActivity(new Intent(this, ReceiptActivity.class));
+                startActivity(new Intent(this, ReceiptActivity.class));
                 break;
             case R.id.logout:
                 // startActivity(new Intent(this, Appointment.class));
@@ -93,8 +91,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         return false;
     }
 
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
     }
 }

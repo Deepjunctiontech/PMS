@@ -2,7 +2,6 @@ package in.junctiontech.pms;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -11,7 +10,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 /**
- * Created by lenovo on 17-Oct-15.
+ * Created by Junction Software on 17-Oct-15.
  */
 public class Utility {
 
@@ -67,7 +66,7 @@ public class Utility {
     }
 
     @SuppressWarnings("deprecation")
-    public static boolean isNetEnable(final Context context,final int i) {
+    public static boolean isNetEnable(final Context context, final int i) {
         ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo;
         if (i == -1)

@@ -10,6 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+/**
+ * Created by Junction Software on 17-Oct-15.
+ */
 public class ReceiptActivity extends AppCompatActivity {
 
     private Spinner receipt_spinner_project,receipt_spinner_task;

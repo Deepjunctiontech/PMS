@@ -4,15 +4,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Created by Junction Software  on 29-Sep-15.
  */
 public class MyBroadCast extends BroadcastReceiver {
 
-     static boolean aeroplaneMode;
-    private static boolean firstConnect=true;
+    static boolean aeroplaneMode;
+    private static boolean firstConnect = true;
 
     @Override
     public void onReceive(Context context, Intent arg1) {
@@ -21,44 +20,35 @@ public class MyBroadCast extends BroadcastReceiver {
 
 
         if (action.equals("com.MyService")) {
-                context.startService(new Intent(context, MyService.class));
+            context.startService(new Intent(context, MyService.class));
             Log.v("STATUS", "SERVICE");
 
-        }
-        else if (action.equals("com.MyBroadCast")) {
+        } else if (action.equals("com.MyBroadCast")) {
             if (!MyService.isRunning)
                 context.startService(new Intent(context, MyService.class));
             Log.v("STATUS", "SPLASH_SCREEN");
 
-        }
-
-        else if(action.equals("android.net.conn.CONNECTIVITY_CHANGE"))
-        {
+        } else if (action.equals("android.net.conn.CONNECTIVITY_CHANGE")) {
             if (!MyService.isRunning)
                 context.startService(new Intent(context, MyService.class));
             else {
                 if (Utility.isNetEnable(context, -1)) {
                     Log.v("STATUS", "INTERNET AVAILABLE");
-                    if(firstConnect) {
+                    if (firstConnect) {
                         SendEmployeeData.getInstance(context).send();
-                        firstConnect=false;
+                        firstConnect = false;
                     }
                 } else {
                     Log.v("STATUS", "INTERNET NOT AVAILABLE");
-                    firstConnect=true;
+                    firstConnect = true;
                 }
             }
-        }
-
-        else if( action.equals("android.intent.action.BOOT_COMPLETED"))
-        {
+        } else if (action.equals("android.intent.action.BOOT_COMPLETED")) {
             context.startService(new Intent(context, MyService.class));
             Log.v("STATUS", "BOOT_COMPLETED");
-        }
-
-        else if (action.equals("android.intent.action.AIRPLANE_MODE")) {
-            Log.v("STATUS", arg1.getBooleanExtra("state", false)+" FLIGHT MODE");
-    //        Toast.makeText(context, " FLIGHT MODE "+(aeroplaneMode = arg1.getBooleanExtra("state", false)) , Toast.LENGTH_LONG).show();
+        } else if (action.equals("android.intent.action.AIRPLANE_MODE")) {
+            Log.v("STATUS", arg1.getBooleanExtra("state", false) + " FLIGHT MODE");
+            //        Toast.makeText(context, " FLIGHT MODE "+(aeroplaneMode = arg1.getBooleanExtra("state", false)) , Toast.LENGTH_LONG).show();
         }
 
     }

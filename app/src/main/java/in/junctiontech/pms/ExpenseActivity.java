@@ -1,34 +1,35 @@
 package in.junctiontech.pms;
 
 import android.content.Intent;
-import android.os.Parcelable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.TranslateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
 
+/**
+ * Created by Junction Software on 1-Oct-15.
+ */
 public class ExpenseActivity extends AppCompatActivity {
 
-    private Spinner expenses_spinner_project,expenses_spinner_task;
+    private Spinner expenses_spinner_project, expenses_spinner_task;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expenses);
-        LinearLayout ll= (LinearLayout) findViewById(R.id.expenses1);
-        LinearLayout l2= (LinearLayout) findViewById(R.id.expenses2);
-        LinearLayout l3= (LinearLayout) findViewById(R.id.expenses3);
-        LinearLayout l4= (LinearLayout) findViewById(R.id.expenses4);
+        LinearLayout ll = (LinearLayout) findViewById(R.id.expenses1);
+        LinearLayout l2 = (LinearLayout) findViewById(R.id.expenses2);
+        LinearLayout l3 = (LinearLayout) findViewById(R.id.expenses3);
+        LinearLayout l4 = (LinearLayout) findViewById(R.id.expenses4);
 
-        TranslateAnimation trans1 = new TranslateAnimation(-1000,1, -100,1);
-        TranslateAnimation trans2 = new TranslateAnimation(1000,1, 100,1);
-        TranslateAnimation trans3 = new TranslateAnimation(100,1, 1000,1);
+        TranslateAnimation trans1 = new TranslateAnimation(-1000, 1, -100, 1);
+        TranslateAnimation trans2 = new TranslateAnimation(1000, 1, 100, 1);
+        TranslateAnimation trans3 = new TranslateAnimation(100, 1, 1000, 1);
 
         trans1.setDuration(1100);
         trans2.setDuration(1100);
@@ -41,9 +42,9 @@ public class ExpenseActivity extends AppCompatActivity {
         l4.setAnimation(trans3);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        expenses_spinner_project= (Spinner) findViewById(R.id.expenses_spinner_project);
-        expenses_spinner_task= (Spinner) findViewById(R.id.expenses_spinner_task);
-     //   expenses_spinner_project.setAdapter(new ArrayAdapter<String>(this, R.layout.myspinner_layout, new String[]{"hello", "hi", "tata", "bye"}));
+        expenses_spinner_project = (Spinner) findViewById(R.id.expenses_spinner_project);
+        expenses_spinner_task = (Spinner) findViewById(R.id.expenses_spinner_task);
+        //   expenses_spinner_project.setAdapter(new ArrayAdapter<String>(this, R.layout.myspinner_layout, new String[]{"hello", "hi", "tata", "bye"}));
         //expenses_spinner_project.onSaveInstanceState()
 
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.list_of_projects, R.layout.myspinner_layout);
@@ -118,21 +119,19 @@ public class ExpenseActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        Class selected=null;
+        Class selected = null;
         if (id == R.id.action_settings) {
-            selected=SettingActivity.class;
+            selected = SettingActivity.class;
 
-        }else if(id==R.id.action_aboutus) {
-            selected=AboutUsActivity.class;
+        } else if (id == R.id.action_aboutus) {
+            selected = AboutUsActivity.class;
+        } else if (id == R.id.action_contactus) {
+            selected = ContactUsActivity.class;
+        } else if (id == R.id.action_help) {
+            selected = HelpActivity.class;
         }
-        else if(id==R.id.action_contactus) {
-            selected=ContactUsActivity.class;
-        }
-        else if(id==R.id.action_help){
-            selected=HelpActivity.class;
-        }
-        if(selected!=null)
-            startActivity(new Intent(this,selected));
+        if (selected != null)
+            startActivity(new Intent(this, selected));
 
         return super.onOptionsItemSelected(item);
     }

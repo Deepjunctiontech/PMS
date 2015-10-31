@@ -80,7 +80,7 @@ public class PMSDatabase extends SQLiteOpenHelper {
         database.execSQL(query);
         Log.d("onUpgrade()", "DATABASE DELETED");
         onCreate(database);*/
-        String upgradeQuery = "ALTER TABLE "+EMPLOYEE_LOCATION_TABLE_NAME+" ADD employeeeName TEXT";
+        String upgradeQuery = "ALTER TABLE " + EMPLOYEE_LOCATION_TABLE_NAME + " ADD employeeeName TEXT";
 
         if (oldVersion == 1 && newVersion == 2) {
             database.execSQL(upgradeQuery);
@@ -127,7 +127,7 @@ public class PMSDatabase extends SQLiteOpenHelper {
         SQLiteDatabase database = super.getReadableDatabase();
         Cursor cursor = database.rawQuery("SELECT * FROM " + EMPLOYEE_LOCATION_TABLE_NAME, null);
         // TODO size according to cursor.getCount() value
-        int countRecord=cursor.getCount();
+        int countRecord = cursor.getCount();
         if (countRecord > 0) {
             List<EmployeeLocation> data = new ArrayList<>(countRecord);
             while (cursor.moveToNext()) {
@@ -153,7 +153,7 @@ public class PMSDatabase extends SQLiteOpenHelper {
     public int getNumberOfEmployeeRecord() {
         SQLiteDatabase database = super.getReadableDatabase();
         Cursor cursor = database.rawQuery("SELECT * FROM " + EMPLOYEE_LOCATION_TABLE_NAME, null);
-        int count =cursor.getCount();
+        int count = cursor.getCount();
         cursor.close();
         database.close();
         return count;
