@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">PMS</string>
+
+    <string name="hello_world">Home Screen</string>
+    <string name="action_settings">Settings</string>
+    <string name="project_name">Project Management System</string>
+    <string name="navigation_project">Projects</string>
+    <string name="navigation_expenses">Expenses</string>
+    <string name="navigation_receipt">Receipt</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="navigation_home">Home</string>
+    <string name="title_activity_receipt">Receipt</string>
+    <string name="navigation_logout">Logout</string>
+    <string name="title_activity_expense">Expense</string>
+
+    <string-array name="list_of_projects">
+        <item>"1"</item>
+        <item>"2"</item>
+        <item>"3"</item>
+        <item>"4"</item>
+        <item>"5"</item>
+        <item>"6"</item>
+        <item>"7"</item>
+        <item>"8"</item>
+        <item>"9"</item>
+        <item>"10"</item>
+    </string-array>
+
+    <string-array name="list_of_tasks">
+        <item>"Task 1"</item>
+        <item>"Task 2"</item>
+        <item>"Task 3"</item>
+        <item>"Task 4"</item>
+        <item>"Task 5"</item>
+        <item>"Task 6"</item>
+        <item>"Task 7"</item>
+        <item>"Task 8"</item>
+        <item>"Task 9"</item>
+        <item>"Task 10"</item>
+    </string-array>
+    <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="title_activity_sign_up">Sign Up</string>
+    <string name="title_activity_about_us">About Us</string>
+    <string name="title_activity_help">Help</string>
+    <string name="title_activity_contact_us">Contact Us</string>
+    <string name="title_activity_setting">Setting</string>
+</resources>

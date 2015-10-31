@@ -1,0 +1,62 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">#f77c14</item>
+
+          <item name="colorAccent">#f77c14</item>
+     <!--  <item name="android:textColorPrimary">#55ff1c</item>
+       <item name="android:textColorSecondary">#3affe7</item>
+        <item name="android:textColorHint">#ffd50e</item>
+        <item name="android:colorActivatedHighlight">#f724cd</item>
+        <item name="android:navigationBarColor" tools:ignore="NewApi">#ffff</item>
+        <item name="actionMenuTextColor">#000099</item>-->
+
+
+
+        <!-- Customize your theme here. -->
+    </style>
+
+
+
+
+        <style name="Theme" parent="Theme.AppCompat.Light.NoActionBar">
+
+            <item name="android:colorPrimary" tools:ignore="NewApi">@color/actionbarcolor</item>
+          <!--  <item name="android:navigationBarColor" tools:ignore="NewApi">#5000</item>-->
+            <item name="android:colorPrimaryDark" tools:ignore="NewApi">#d000</item>
+        </style>
+
+
+    <!--   <item name="textAppearanceListItem">@style/list_item_appearance</item>
+     </style>
+
+     <style name="list_item_appearance">
+         <item name="android:textSize">16dp</item>
+         <item name="android:textColor">#987654</item>
+         <item name="android:colorPrimaryDark" tools:targetApi="lollipop">#2638ff</item>
+         <item name="android:textColorPrimary">#98200f</item>
+-->
+
+
+
+
+    <!--  For Navigation Items  -->
+    <style name="list_item_appearance">
+    <item name="android:textSize">17sp</item>
+       <!-- <item name="android:textStyle">italic</item>-->
+
+   </style>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+
+
+
+
+</resources>

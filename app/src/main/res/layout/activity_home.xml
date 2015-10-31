@@ -1,0 +1,56 @@
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Home">
+
+
+    <LinearLayout
+        android:id="@+id/main_contain"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/actionbarcolor"
+            android:elevation="@dimen/oll_elevation"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:title="@string/navigation_home"></android.support.v7.widget.Toolbar>
+
+
+        <include
+            layout="@layout/footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            />
+    </LinearLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#fffafa"
+        app:headerLayout="@layout/drawer_header"
+        app:itemIconTint="#871b0c"
+        app:itemTextColor="@color/actionbarcolor"
+        app:menu="@menu/menu_drawer"
+        android:theme="@style/list_item_appearance"
+
+        >
+
+
+
+
+
+
+    </android.support.design.widget.NavigationView>
+
+</android.support.v4.widget.DrawerLayout>

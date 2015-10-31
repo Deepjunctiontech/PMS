@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/home"
+            android:title="@string/navigation_home"
+            android:icon="@drawable/home"
+
+            />
+        </group>
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/project"
+            android:title="@string/navigation_project"
+            android:icon="@drawable/projecticon"
+
+            />
+    </group>
+
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/expense"
+            android:title="@string/navigation_expenses"
+            android:icon="@drawable/expenses"
+            />
+    </group>
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/receipt"
+            android:title="@string/navigation_receipt"
+            android:icon="@drawable/task"/>
+    </group>
+    <group
+        android:id="@+id/group2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/logout"
+            android:title="@string/navigation_logout"
+            android:icon="@drawable/logout"/>
+
+    </group>
+
+
+</menu>

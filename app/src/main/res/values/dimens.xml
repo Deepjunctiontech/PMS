@@ -1,0 +1,16 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="text_oll_size">20sp</dimen>
+    <dimen name="textview_size">15sp</dimen>
+    <dimen name="oll_padding">15dp</dimen>
+    <dimen name="oll_margin">16dp</dimen>
+    <dimen name="layout_padding">10dp</dimen>
+    <dimen name="single_line_box">60dp</dimen>
+    <dimen name="view_height">15dp</dimen>
+    <dimen name="view_width">1dp</dimen>
+    <dimen name="view_box">@android:drawable/picture_frame</dimen>
+    <dimen name="oll_elevation">5dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+</resources>
