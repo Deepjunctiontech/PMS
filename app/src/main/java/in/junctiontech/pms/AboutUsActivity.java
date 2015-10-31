@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 public class AboutUsActivity extends AppCompatActivity {
 
+    int a;// TODO check
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
