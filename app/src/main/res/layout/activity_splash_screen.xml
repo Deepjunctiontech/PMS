@@ -1,16 +1,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rel"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff006699"
-    tools:context="in.junctiontech.pms.SplashScreen">
+    android:background="#024566"
+    tools:context="in.junctiontech.project.SplashScreen">
 
     <ImageView
         android:id="@+id/imgLogo"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:src="@drawable/junction" />
+        android:layout_gravity="center"
+        android:src="@drawable/junction"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="fill_parent"

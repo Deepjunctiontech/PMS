@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:padding="@dimen/activity_horizontal_margin"
-    tools:context="in.junctiontech.pms.Receipt"
+    tools:context="in.junctiontech.project.Receipt"
     android:orientation="vertical">
 
     <ScrollView
