@@ -16,11 +16,21 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import in.junctiontech.project.employee.Employee;
+import in.junctiontech.project.employee.EmployeeLocation;
+import in.junctiontech.project.employee.EmployeeOtherDetails;
+import in.junctiontech.project.employeeproject.Expense;
+import in.junctiontech.project.employeeproject.Receipt;
 
 import static in.junctiontech.project.PMSOtherConstant.URL_UPDATE;
 
@@ -34,7 +44,7 @@ public class SendEmployeeData {
     private final StringRequest stringRequest;
     private final Gson gson;
     private final Context context;
-    private final Employee employee;
+    private final EmployeeOtherDetails employeeOtherDetails;
     private PMSDatabase pmsDatabase;
     private final RequestQueue queue;
     private String data;
@@ -44,7 +54,7 @@ public class SendEmployeeData {
         this.context = context;
         queue = Volley.newRequestQueue(context);
         gson = new GsonBuilder().create();
-        employee = new Employee(context);
+        employeeOtherDetails = new EmployeeOtherDetails(context);
         pmsDatabase = PMSDatabase.getInstance(context);
         // String Request For Sending Data initialize here because we restrict multiple object creation of String Request
 
@@ -60,9 +70,40 @@ public class SendEmployeeData {
                                     Toast.LENGTH_SHORT).show();
                             pmsDatabase.deleteEmployeeData();
                         }
+                        try {
+
+                            JSONObject jsonObject = new JSONObject(response);
+
+                            JSONArray jsonArray = jsonObject.getJSONArray("employee_list");
+
+                            int countRecord = jsonArray.length();
+                            if (countRecord > 0) {
+                                List<EmployeeLocation> employeeLocations = new ArrayList<>(countRecord);
+
+                                for (int i = 0; i < countRecord; i++) {
+                                    JSONObject n = jsonArray.getJSONObject(i);
+                                    if ("success".equalsIgnoreCase(n.getString("status"))) {
+                                        employeeLocations.add(new EmployeeLocation(n.getString("employeeLocationDate"),
+                                                n.getString("employeeLocationTime")));
+                                    }
+                                }
+
+                               pmsDatabase.updateEmployeeStatus(employeeLocations);
+
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+
+
+
 
                         // Display the first 500 characters of the response string.
-                        //      Toast.makeText(SendEmployeeData.this.context, response, Toast.LENGTH_LONG).show();
+                        //     Toast.makeText(SendEmployeeData.this.context, response, Toast.LENGTH_LONG).show();
 
                     }
                 }, new Response.ErrorListener() {
@@ -74,7 +115,7 @@ public class SendEmployeeData {
                     err = "No Internet Access\nCheck Your Internet Connection.";
                 }
 
-                // Toast.makeText(SendEmployeeData.this.context, err, Toast.LENGTH_LONG).show();
+                 Toast.makeText(SendEmployeeData.this.context, err, Toast.LENGTH_LONG).show();
 
             }
 
@@ -111,7 +152,7 @@ public class SendEmployeeData {
     public void send() {
 
         if (pmsDatabase.getNumberOfEmployeeRecord() > 0) {
-            data = gson.toJson(pmsDatabase.getEmployeeData(employee));
+            data = gson.toJson(pmsDatabase.getEmployeeData(employeeOtherDetails));
             queue.add(stringRequest);
         }
 

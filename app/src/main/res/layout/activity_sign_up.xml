@@ -40,10 +40,27 @@
                 android:background="#09aeef" />
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/user_text"
+                android:id="@+id/organization_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/oll_margin">
+
+                <EditText
+                    android:id="@+id/organization_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/oll_margin"
+                    android:ems="10"
+                    android:hint="Organization Name"
+                    android:inputType="textEmailAddress|textPersonName" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/user_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
 
                 <EditText
                     android:id="@+id/user_edit"
@@ -51,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/oll_margin"
                     android:ems="10"
-                    android:hint="Email Address"
+                    android:hint="Login Id"
                     android:inputType="textEmailAddress|textPersonName" />
             </android.support.design.widget.TextInputLayout>
 

@@ -17,10 +17,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.GsonBuilder;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import in.junctiontech.project.employee.Employee;
 
 import static in.junctiontech.project.PMSOtherConstant.URL_REGISTER;
 
@@ -88,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
                             }
 
                             // Display the first 500 characters of the response string.
-                            //      Toast.makeText(SendEmployeeData.this.context, response, Toast.LENGTH_LONG).show();
+                                 Toast.makeText(RegisterActivity.this, response, Toast.LENGTH_LONG).show();
 
                         }
                     }, new Response.ErrorListener() {
@@ -110,11 +113,9 @@ public class RegisterActivity extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> param = new LinkedHashMap<>();
-                    param.put("employeeName", name);
-                    param.put("employeeMobileNumber", mobile_no);
-                    param.put("employeePassword", password);
-                    param.put("employeeOrganizationName", organization_name);
-                    param.put("employeeIMEI", "HARDCODED"); // TODO SEND IMEI
+                   param.put("registration_info",
+                           new GsonBuilder().create().toJson(new Employee(RegisterActivity.this,name, organization_name, mobile_no, password))) ;
+
                     return param;
                 }
 

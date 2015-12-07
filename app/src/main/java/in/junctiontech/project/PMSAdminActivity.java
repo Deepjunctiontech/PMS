@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.CheckBox;
 
 /**
  * Created by Junction Software on 05-Nov-15.
@@ -14,10 +16,14 @@ import android.util.Log;
 
 public class PMSAdminActivity extends AppCompatActivity {
 
+    private CheckBox checkBoxAdmin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         startActivityForResult(new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN)
+                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP)  // TODO BECAUSE MULTIPLE DA SHOWS
                         .putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, new ComponentName(this, PMSAdmin.class))
                         .putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,
                                 "Please Activate Device Admin For Better Performance Of Application."),
@@ -31,10 +37,12 @@ public class PMSAdminActivity extends AppCompatActivity {
 
         switch (requestCode) {
             case 111:
-                if (resultCode == Activity.RESULT_OK)
+                if (resultCode == Activity.RESULT_OK) {
                     Log.i("DeviceAdminSample", "Admin enabled!");
-                else
+                }
+                else {
                     Log.i("DeviceAdminSample", "Admin fails!");
+                }
         }
         super.onActivityResult(requestCode, resultCode, data);
         finish();

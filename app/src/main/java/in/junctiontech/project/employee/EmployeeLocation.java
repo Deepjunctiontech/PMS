@@ -25,6 +25,11 @@ public class EmployeeLocation {
 
     }
 
+    public EmployeeLocation(String employeeLocationDate, String employeeLocationTime) {
+        this.employeeLocationDate=employeeLocationDate;
+        this.employeeLocationTime=employeeLocationTime;
+    }
+
     @Override
     public String toString()
     {

@@ -10,7 +10,6 @@
     <dimen name="single_line_box">60dp</dimen>
     <dimen name="view_height">15dp</dimen>
     <dimen name="view_width">1dp</dimen>
-    <dimen name="view_box">@android:drawable/picture_frame</dimen>
     <dimen name="oll_elevation">5dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 </resources>

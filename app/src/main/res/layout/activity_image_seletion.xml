@@ -1,0 +1,155 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_horizontal_margin"
+    android:scaleType="centerCrop"
+    tools:context="in.junctiontech.project.ImageSelectionActivity">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/single_line_box"
+                android:background="@drawable/mybox"
+                android:elevation="@dimen/oll_elevation"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:freezesText="true"
+                    android:gravity="center"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:padding="@dimen/layout_padding"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="PROJECT ID"
+                    android:textColor="@color/actionbarcolor"
+                    android:textSize="@dimen/textview_size" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:background="@color/divider"></View>
+
+
+                <Spinner
+                    android:id="@+id/image_spinner_projectId"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50"
+                    android:entries="@array/list_of_projects"
+                    android:gravity="center"
+                    android:prompt="@string/open"
+
+                    />
+                <!--android:dropDownWidth="100dp"-->
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/single_line_box"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:background="@drawable/mybox"
+                android:clipToPadding="false"
+                android:elevation="@dimen/oll_elevation"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:padding="@dimen/layout_padding"
+                    android:text="TASK ID"
+                    android:textColor="@color/actionbarcolor"
+                    android:textSize="@dimen/textview_size" />
+
+                <View
+                    android:layout_width="@dimen/view_width"
+                    android:layout_height="@dimen/view_height"
+                    android:layout_gravity="center"
+                    android:background="@color/divider"></View>
+
+
+                <Spinner
+                    android:id="@+id/image_spinner_taskId"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50"
+                    android:entries="@array/list_of_tasks"
+                    android:gravity="center"
+                    android:prompt="@string/open"
+
+                    />
+                <!--android:dropDownWidth="100dp"-->
+
+
+            </LinearLayout>
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/activity_horizontal_margin">
+
+                <GridView
+                    android:id="@+id/new_open_gridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="337dp"
+                    android:layout_weight="60"
+                    android:columnWidth="90dp"
+                    android:drawSelectorOnTop="true"
+                    android:gravity="center"
+                    android:horizontalSpacing="10dp"
+                    android:listSelector="@drawable/selector"
+                    android:numColumns="auto_fit"
+                    android:padding="10dp"
+                    android:smoothScrollbar="true"
+                    android:stretchMode="columnWidth"
+                    android:transcriptMode="alwaysScroll"
+                    android:verticalSpacing="10dp" />
+
+
+                <!-- android:listSelector="@android:color/transparent"-->
+
+                <ImageButton
+                    android:id="@+id/fab_image_button"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="right|bottom"
+                    android:background="@drawable/btn"
+                    android:onClick="fabClick"
+                    android:src="@android:drawable/ic_menu_camera"
+                    android:visibility="invisible"/>
+
+                <ImageButton
+                    android:id="@+id/fab_image_button_send"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="left|bottom"
+                    android:background="@drawable/btn"
+                    android:onClick="fabClickSend"
+                    android:src="@android:drawable/ic_menu_send"
+                    />
+
+
+            </FrameLayout>
+        </LinearLayout>
+</LinearLayout>

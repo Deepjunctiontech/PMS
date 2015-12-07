@@ -7,30 +7,142 @@
     tools:context=".Home">
 
 
-    <LinearLayout
-        android:id="@+id/main_contain"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/app_bar"
+        <LinearLayout
+            android:id="@+id/main_contain"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/actionbarcolor"
-            android:elevation="@dimen/oll_elevation"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            android:title="@string/navigation_home"></android.support.v7.widget.Toolbar>
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/app_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/actionbarcolor"
+                android:elevation="@dimen/oll_elevation"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                android:title="@string/navigation_home"></android.support.v7.widget.Toolbar>
+
+            <Button
+                android:id="@+id/dashboard_projects"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="setListView"
+                android:text="Dashboard Projects" />
+
+            <Button
+                android:id="@+id/dashboard_tasks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="setListView"
+                android:text="Dashboard Tasks" />
 
 
-        <include
-            layout="@layout/footer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/mybox"
+                android:orientation="vertical">
 
-            />
-    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:weightSum="13">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:text="PID"
+                        android:textColor="@color/actionbarcolor"
+                        android:textSize="15sp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="20dp"
+                        android:background="@color/divider"
+                        android:gravity="center"></View>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:text="TID"
+                        android:textColor="@color/actionbarcolor"
+                        android:textSize="15sp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="20dp"
+                        android:background="@color/divider"
+                        android:gravity="center"></View>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:text="Expense"
+                        android:textColor="@color/actionbarcolor"
+                        android:textSize="15sp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="20dp"
+                        android:background="@color/divider"></View>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:text="Receipt"
+                        android:textColor="@color/actionbarcolor"
+                        android:textSize="15sp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="20dp"
+                        android:background="@color/divider"></View>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:text="Image"
+                        android:textColor="@color/actionbarcolor"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"></View>
+
+                <ListView
+                    android:id="@+id/lv_for_dashboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></ListView>
+
+
+            </LinearLayout>
+
+
+            <include
+                layout="@layout/footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                />
+
+
+        </LinearLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navi"
@@ -38,17 +150,13 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="#fffafa"
+        android:theme="@style/list_item_appearance"
         app:headerLayout="@layout/drawer_header"
         app:itemIconTint="#871b0c"
         app:itemTextColor="@color/actionbarcolor"
         app:menu="@menu/menu_drawer"
-        android:theme="@style/list_item_appearance"
 
         >
-
-
-
-
 
 
     </android.support.design.widget.NavigationView>

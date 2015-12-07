@@ -1,15 +1,35 @@
 package in.junctiontech.project;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.io.File;
+import java.util.List;
+
+import in.junctiontech.project.employeeproject.DashBoard;
+
+import static in.junctiontech.project.PMSOtherConstant.IMAGE_DIRECTORY_NAME_MEDIUM;
+import static in.junctiontech.project.PMSOtherConstant.IMAGE_DIRECTORY_NAME_ORIGINAL;
+import static in.junctiontech.project.PMSOtherConstant.IMAGE_DIRECTORY_NAME_THUMBNAIL;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -17,6 +37,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView navi;
     private DrawerLayout dl;
     private ActionBarDrawerToggle abdt;
+    private static boolean checked;
+    private PMSDatabase pmsDatabase;
+    private ListView lv_for_dashbaord;
+    private CustomAdapter customAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +55,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         dl.setDrawerListener(abdt);
         abdt.syncState();
         dl.openDrawer(GravityCompat.START);
+        pmsDatabase = PMSDatabase.getInstance(this);
+        lv_for_dashbaord = (ListView) findViewById(R.id.lv_for_dashboard);
     }
 
     @Override
@@ -73,7 +99,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id) {
             case R.id.project:
-                //startActivity(new Intent(this, Appointment.class));
+                startActivity(new Intent(this, ProjectActivity.class));
+                /*if(menu != null){
+                    MenuItem item_up = menu.findItem(R.id.action_up);
+                    item_up.setVisible(isChecked);
+                }*/
                 break;
             case R.id.expense:
                 startActivity(new Intent(this, ExpenseActivity.class));
@@ -82,9 +112,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(this, ReceiptActivity.class));
                 break;
             case R.id.logout:
-                // startActivity(new Intent(this, Appointment.class));
+               /* getSharedPreferences("Login", MODE_PRIVATE).edit().clear().commit();
+                finish();
+                startActivity(new Intent(this, SignUpActivity.class));*/
+                alert();
                 break;
-
+            case R.id.image:
+                startActivity(new Intent(this, ImageSelectionActivity.class));
+                break;
+            case R.id.setting:
+                startActivity(new Intent(this, SettingActivity.class));
+                break;
 
         }
 
@@ -93,5 +131,165 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     public void onResume() {
         super.onResume();
+        // dl.openDrawer(GravityCompat.START);
+        navi.getMenu().getItem(0).setChecked(true);
+        updateTable("projects");
     }
+
+    private void alert() {
+        navi.getMenu().getItem(0).setChecked(true);
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(this);
+        // builder.setTitle("Confirmation");
+        builder.setMessage("Are you sure you want to logout\nAll data will be flush...?");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (pmsDatabase.flushAllData()) {
+                    // Toast.makeText(this,"Database Delete",Toast.LENGTH_LONG).show();
+                    deleteImage(IMAGE_DIRECTORY_NAME_ORIGINAL);
+                    deleteImage(IMAGE_DIRECTORY_NAME_THUMBNAIL);
+                    deleteImage(IMAGE_DIRECTORY_NAME_MEDIUM);
+                }
+                getSharedPreferences("Login", MODE_PRIVATE)
+                        .edit().clear().commit();
+                startActivity(new Intent(HomeActivity.this, SignUpActivity.class));
+                finish();
+
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
+    }
+
+    private void deleteImage(String folder) {
+        File mediaStorageDir = new File(
+                Environment
+                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                folder);
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                return;
+            }
+        }
+
+
+        File[] f = mediaStorageDir.listFiles();
+
+        for (int i = 0; i < f.length; i++) {
+            f[i].delete();
+        }
+        mediaStorageDir.delete();
+        //Toast.makeText(this,mediaStorageDir.delete()+"",Toast.LENGTH_LONG).show();
+
+
+    }
+
+    public void updateTable(String status) {
+        List<DashBoard> dashBoards;
+        if("projects".equalsIgnoreCase(status))
+            dashBoards= pmsDatabase.getDashBoardProjectData();
+        else
+            dashBoards= pmsDatabase.getDashBoardTaskData();
+
+        if (dashBoards != null) {
+            if (customAdapter == null) {
+                Log.d("ADAPTER", "CREATED");
+                customAdapter = new CustomAdapter(this, dashBoards);
+                lv_for_dashbaord.setAdapter(customAdapter);
+            } else {
+                Log.d("ADAPTER", "MODIFIED");
+                customAdapter.clear();
+                customAdapter.addAll(dashBoards);
+                customAdapter.notifyDataSetChanged();
+            }
+
+
+        } else {
+            lv_for_dashbaord.setAdapter(new ArrayAdapter<>
+                    (this, android.R.layout.simple_list_item_1, new String[]{"Currently Not Available"}));
+
+        }
+    }
+
+    class CustomAdapter extends ArrayAdapter<DashBoard> {
+        private List<DashBoard> dashBoards;
+        private Context context;
+
+        public CustomAdapter(Context context, List<DashBoard> dashBoards) {
+            super(context, R.layout.for_dashboard, dashBoards);
+            this.context = context;
+            this.dashBoards = dashBoards;
+        }
+
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public DashBoard getItem(int position) {
+            return super.getItem(position);
+        }
+
+
+        public void hideView(int pos) {
+            dashBoards.remove(pos);
+            notifyDataSetChanged();
+        }
+
+        public void showView(int pos) {
+            dashBoards.add(pos, dashBoards.get(pos));
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            ViewHolder viewHolder;
+            if (convertView == null) {
+                LayoutInflater myLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = myLayoutInflater.inflate(R.layout.for_dashboard, null);
+                viewHolder = new ViewHolder();
+                viewHolder.pid = (TextView) convertView.findViewById(R.id.pid_dashboard);
+                viewHolder.tid = (TextView) convertView.findViewById(R.id.tid_dashboard);
+                viewHolder.expense = (TextView) convertView.findViewById(R.id.expense_dashboard);
+                viewHolder.receipt = (TextView) convertView.findViewById(R.id.receipt_dashboard);
+                viewHolder.image = (TextView) convertView.findViewById(R.id.image_dashboard);
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+            DashBoard dashBoard = dashBoards.get(position);
+            viewHolder.pid.setText(dashBoard.getPid());
+            viewHolder.tid.setText(dashBoard.getTid());
+            viewHolder.expense.setText(dashBoard.getExpense());
+            viewHolder.receipt.setText(dashBoard.getReceipt());
+            viewHolder.image.setText(dashBoard.getImage());
+
+
+            return convertView;
+        }
+
+        public class ViewHolder {
+            TextView pid, tid, expense, receipt, image;
+        }
+
+
+    }
+
+    public void setListView(View v)
+    {
+       if( v.getId()==R.id.dashboard_projects)
+       {
+           updateTable("projects");
+       }
+        else if(v.getId()==R.id.dashboard_tasks)
+       {
+           updateTable("tasks");
+       }
+    }
+
+
 }

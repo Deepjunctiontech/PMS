@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="in.junctiontech.project" >
+    package="in.junctiontech.project">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -9,14 +9,17 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <activity android:name="in.junctiontech.project.SplashScreenActivity" >
+        android:theme="@style/AppTheme">
+        <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,44 +27,49 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="in.junctiontech.project.HomeActivity"
+            android:name=".HomeActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme" />
+            android:theme="@style/Theme"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="in.junctiontech.project.ReceiptActivity"
-            android:label="@string/title_activity_receipt" />
+            android:name=".ReceiptActivity"
+            android:label="@string/title_activity_receipt"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="in.junctiontech.project.ExpenseActivity"
-            android:label="@string/title_activity_expense" />
+            android:name=".ExpenseActivity"
+            android:label="@string/title_activity_expense"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="in.junctiontech.project.SignUpActivity"
+            android:name=".SignUpActivity"
             android:label="@string/title_activity_sign_up"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
 
         <service
-            android:name="in.junctiontech.project.MyService"
+            android:name=".MyService"
             android:enabled="true"
-            android:label="MyService" >
+            android:label="MyService">
             <intent-filter>
                 <action android:name=".MyService" />
             </intent-filter>
         </service>
 
         <receiver
-            android:name="in.junctiontech.project.MyBroadCast"
-            android:label="MyBroadCast" >
+            android:name=".MyBroadCast"
+            android:label="MyBroadCast">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.intent.action.AIRPLANE_MODE" />
                 <action android:name="android.intent.action.ACTION_SHUTDOWN" />
                 <action android:name="android.intent.action.QUICKBOOT_POWEROFF" />
-                <action android:name="android.intent.action.QUICKBOOT_POWERON" /> <!-- because of htc phones -->
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <!-- because of htc phones -->
             </intent-filter>
         </receiver>
         <receiver
-            android:name="in.junctiontech.project.PMSAdmin"
-            android:permission="android.permission.BIND_DEVICE_ADMIN" >
+            android:name=".PMSAdmin"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
             <meta-data
                 android:name="android.app.device_admin"
                 android:resource="@xml/device_admin_sample" />
@@ -72,22 +80,48 @@
         </receiver>
 
         <activity
-            android:name="in.junctiontech.project.HelpActivity"
-            android:label="@string/title_activity_help" />
+            android:name=".HelpActivity"
+            android:label="@string/title_activity_help"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="in.junctiontech.project.AboutUsActivity"
+            android:name=".AboutUsActivity"
             android:label="@string/title_activity_about_us"
-            android:theme="@style/Base.Theme.AppCompat.Light.Dialog.Alert" />
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog.Alert"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="in.junctiontech.project.ContactUsActivity"
+            android:name=".ContactUsActivity"
             android:label="@string/title_activity_contact_us"
-            android:theme="@style/Base.Theme.AppCompat.Light.Dialog.Alert" />
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog.Alert"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="in.junctiontech.project.SettingActivity"
+            android:name=".SettingActivity"
             android:label="@string/title_activity_setting" />
-        <activity android:name="in.junctiontech.project.PMSAdminActivity" />
-        <activity android:name="in.junctiontech.project.RegisterActivity" >
-        </activity>
+        <activity android:name=".PMSAdminActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".RegisterActivity"
+            android:label="@string/title_activity_register"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".ProjectActivity"
+            android:label="@string/title_activity_projectList"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".TaskActivity"
+            android:label="@string/title_activity_taskList"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".DetailActivity"
+            android:label="@string/title_activity_details"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".ImageSelectionActivity"
+            android:label="@string/title_activity_image"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".ViewImage"
+            android:label="@string/title_activity_viewImage"
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog.Alert"
+            android:screenOrientation="portrait"></activity>
+
     </application>
 
 </manifest>

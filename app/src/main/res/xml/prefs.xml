@@ -4,9 +4,47 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:key="splash_status"
-        android:summary="ON / OFF "
-        android:title="Splash Screen" />
+    <PreferenceCategory android:title="General Setting">
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="splash_status"
+            android:summary="ON / OFF "
+            android:title="Splash Screen" />
+        <CheckBoxPreference
+            android:id="@+id/admin"
+            android:defaultValue="false"
+            android:key="device_admin"
+            android:summary="ON / OFF "
+            android:title="Device Administrator" />
+
+        <!--<ListPreference
+            android:title="DEVICE ADMINISTRATOR"
+            android:key="device_admin1"
+            android:entries="@array/list_of_projects"
+            android:entryValues="@array/list_of_tasks"
+            />-->
+
+    </PreferenceCategory>
+
+    <!-- <PreferenceCategory
+         android:title="Sub Screens">
+
+         <PreferenceScreen
+             android:key="voicemail_category"
+             android:title="Voicemail"
+             android:persistent="false">
+
+             <Preference
+                 android:title="Provider"
+                 android:summary="Airtel"
+                 android:key="provider" />
+
+             &lt;!&ndash; and other preference objects ... &ndash;&gt;
+
+         </PreferenceScreen>
+
+     </PreferenceCategory>-->
+
+
 </PreferenceScreen>

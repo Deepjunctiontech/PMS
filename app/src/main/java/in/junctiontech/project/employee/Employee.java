@@ -1,64 +1,89 @@
 package in.junctiontech.project.employee;
 
-
 import android.content.Context;
 
-import java.util.List;
-
-import in.junctiontech.project.project.Project;
-
 /**
- * Created by Junction Software on 13-Oct-15.
+ * Created by JUNCTION SOFTWARE on 18-Nov-15.
+ *
+ * Date
  */
+
+
 public class Employee {
 
+    protected String employeeName;
+    protected String employeeIMEI;   //  TODO MAKE IT INT
+    protected String employeeOrganizationName;
+    protected String employeeMobileNumber;
+    private String employeePassword; // may be change to protected
 
-    private String employeeName;
-    private String employeeIMEI;  //  TODO MAKE IT INT
-    private List<Project> employeeProjectList;
-    private List<EmployeeLocation> employeeLocationList;
+    /* Constructor  */
 
-  public Employee(Context context)
-    {
-        employeeIMEI= context.getSharedPreferences("employee_data", Context.MODE_PRIVATE).getString("IMEI", "notfound");
+    public Employee(String employeeOrganizationName, String employeeMobileNumber, String employeePassword) {
+        this.employeeOrganizationName = employeeOrganizationName;
+        this.employeeMobileNumber = employeeMobileNumber;
+        this.employeePassword = employeePassword;
     }
 
-    /*
-               getter methods
-        */
-    public String getEmployeeIMEI() {
-        return employeeIMEI;
+    public Employee(Context context) {
+        employeeIMEI = context.getSharedPreferences("employee_data", Context.MODE_PRIVATE).getString("IMEI", "notfound");
+        // this constructor is very necessary because child class have parametrized constructor
+        // -- internally call constructor of this class of no argument constructor (inheritance rule)
     }
+
+    public Employee(Context context, String employeeName, String employeeOrganizationName, String employeeMobileNumber, String employeePassword) {
+        this(context);
+        this.employeeName = employeeName;
+        this.employeeOrganizationName = employeeOrganizationName;
+        this.employeeMobileNumber = employeeMobileNumber;
+        this.employeePassword = employeePassword;
+    }
+
+   /*
+    getter methods
+    */
 
     public String getEmployeeName() {
         return employeeName;
     }
 
-    public List<Project> getEmployeeProjectList() {
-        return employeeProjectList;
+    public String getEmployeeIMEI() {
+        return employeeIMEI;
     }
 
-    public List<EmployeeLocation> getEmployeeLocationList() {
-        return employeeLocationList;
+    public String getEmployeeOrganizationName() {
+        return employeeOrganizationName;
+    }
+
+    public String getEmployeeMobileNumber() {
+        return employeeMobileNumber;
+    }
+
+    public String getEmployeePassword() {
+        return employeePassword;
     }
 
     /*
-           setter methods
+    setter methods
     */
-    public  void setEmployeeIMEI(final String employeeIMEI) {
-        this.employeeIMEI = employeeIMEI;
-    }
 
-    public void setEmployeeName(final String employeeName) {
+    public void setEmployeeName(String employeeName) {
         this.employeeName = employeeName;
     }
 
-
-    public void setEmployeeProjectList(final List<Project> employeeProjectList) {
-        this.employeeProjectList = employeeProjectList;
+    public void setEmployeeIMEI(String employeeIMEI) {
+        this.employeeIMEI = employeeIMEI;
     }
 
-    public void setEmployeeLocationList(final List<EmployeeLocation> employeeLocationList) {
-        this.employeeLocationList = employeeLocationList;
+    public void setEmployeeOrganizationName(String employeeOrganizationName) {
+        this.employeeOrganizationName = employeeOrganizationName;
+    }
+
+    public void setEmployeeMobileNumber(String employeeMobileNumber) {
+        this.employeeMobileNumber = employeeMobileNumber;
+    }
+
+    public void setEmployeePassword(String employeePassword) {
+        this.employeePassword = employeePassword;
     }
 }

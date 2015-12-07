@@ -10,6 +10,9 @@ interface PMSOtherConstant {
     String URL_UPDATE = "http://junctiondev.cloudapp.net/appmanager/remoteapi/locationUpdate";
     String URL_REGISTER = "http://junctiondev.cloudapp.net/appmanager/remoteapi/employeeRegister";
     String SENDING_NUMBER = "0";
+    String IMAGE_DIRECTORY_NAME_ORIGINAL = "PMS-ORIGINAL";
+    String IMAGE_DIRECTORY_NAME_THUMBNAIL = "PMS-THUMBNAIL";
+    String IMAGE_DIRECTORY_NAME_MEDIUM = "PMS-MEDIUM";
     //  String IMAGE_LOCATION_ORIGINAL = "5554";
     //  String IMAGE_LOCATION_THUMBNAIL = "5554";
 }

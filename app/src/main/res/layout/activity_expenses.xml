@@ -157,6 +157,46 @@
 
 
         <LinearLayout
+            android:id="@+id/expenses5"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/single_line_box"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:background="@drawable/mybox"
+            android:clipToPadding="false"
+            android:elevation="@dimen/oll_elevation"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:padding="@dimen/layout_padding"
+                android:text="Select Date"
+                android:textColor="@color/actionbarcolor"
+                android:textSize="@dimen/textview_size" />
+
+
+            <View
+                android:layout_width="@dimen/view_width"
+                android:layout_height="@dimen/view_height"
+                android:layout_gravity="center"
+                android:background="@color/divider"></View>
+
+            <Button
+                android:id="@+id/expense_date"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:onClick="selectDate"
+
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
             android:id="@+id/expenses4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -211,6 +251,13 @@
             </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SAVE"
+            android:id="@+id/expenseSaving"
+            android:onClick="expenseSaving"/>
 
         <include
             layout="@layout/footer"

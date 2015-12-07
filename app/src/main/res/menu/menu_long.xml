@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/sync_long"
+        android:title="Sync"></item>
+    <item
+        android:id="@+id/expense_long"
+        android:title="Expense"></item>
+    <item
+        android:id="@+id/receipt_long"
+        android:title="Receipt"></item>
+    <item
+        android:id="@+id/image_long"
+        android:title="Image"></item>
+
+
+</menu>
