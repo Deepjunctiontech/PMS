@@ -13,7 +13,6 @@ public class EmployeeOtherDetails extends Employee {
 
     private List<EmployeeLocation> employeeLocationList;
 
-
     public EmployeeOtherDetails(Context context) {
 
         super(context);

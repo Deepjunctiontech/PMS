@@ -12,14 +12,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.io.File;
@@ -39,8 +40,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private ActionBarDrawerToggle abdt;
     private static boolean checked;
     private PMSDatabase pmsDatabase;
-    private ListView lv_for_dashbaord;
+    //  private ListView lv_for_dashbaord;
     private CustomAdapter customAdapter;
+    private AlphaAnimation alphaDown, alphaUp;
+    private Button project, expense, receipt;
+    private ImageButton task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +60,18 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         abdt.syncState();
         dl.openDrawer(GravityCompat.START);
         pmsDatabase = PMSDatabase.getInstance(this);
-        lv_for_dashbaord = (ListView) findViewById(R.id.lv_for_dashboard);
+        alphaDown = new AlphaAnimation(1.0f, 0.3f);
+        alphaUp = new AlphaAnimation(0.2f, 1.0f);
+        alphaDown.setDuration(200);
+        alphaUp.setDuration(1000);
+
+
+        project = (Button) findViewById(R.id.projects_dashboard);
+        task = (ImageButton) findViewById(R.id.tasks_dashboard);
+        expense = (Button) findViewById(R.id.expenses_dashboard);
+        receipt = (Button) findViewById(R.id.receipts_dashboard);
+
+        //   lv_for_dashbaord = (ListView) findViewById(R.id.lv_for_dashboard);
     }
 
     @Override
@@ -145,12 +160,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (pmsDatabase.flushAllData()) {
-                    // Toast.makeText(this,"Database Delete",Toast.LENGTH_LONG).show();
-                    deleteImage(IMAGE_DIRECTORY_NAME_ORIGINAL);
-                    deleteImage(IMAGE_DIRECTORY_NAME_THUMBNAIL);
-                    deleteImage(IMAGE_DIRECTORY_NAME_MEDIUM);
-                }
+                pmsDatabase.flushAllData();
+                // Toast.makeText(this,"Database Delete",Toast.LENGTH_LONG).show();
+                deleteImage(IMAGE_DIRECTORY_NAME_ORIGINAL);
+                deleteImage(IMAGE_DIRECTORY_NAME_THUMBNAIL);
+                deleteImage(IMAGE_DIRECTORY_NAME_MEDIUM);
+
                 getSharedPreferences("Login", MODE_PRIVATE)
                         .edit().clear().commit();
                 startActivity(new Intent(HomeActivity.this, SignUpActivity.class));
@@ -186,7 +201,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void updateTable(String status) {
-        List<DashBoard> dashBoards;
+    /*    List<DashBoard> dashBoards;
         if("projects".equalsIgnoreCase(status))
             dashBoards= pmsDatabase.getDashBoardProjectData();
         else
@@ -209,7 +224,44 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             lv_for_dashbaord.setAdapter(new ArrayAdapter<>
                     (this, android.R.layout.simple_list_item_1, new String[]{"Currently Not Available"}));
 
+        }*/
+    }
+
+
+    private View v = null;
+
+
+    public void onClick(View view) {
+      /*  alphaDown.cancel();
+        alphaDown.reset();
+
+      */
+        if (v != null) {
+            v.clearAnimation();
         }
+        v = view;
+
+
+        switch (view.getId()) {
+            case R.id.projects_dashboard:
+                project.startAnimation(alphaUp);
+                startActivity(new Intent(this, DashboardActivity.class).putExtra("ID","Project"));
+                break;
+            case R.id.tasks_dashboard:
+                task.startAnimation(alphaUp);
+                startActivity(new Intent(this, DashboardActivity.class).putExtra("ID", "Task"));
+                break;
+            case R.id.expenses_dashboard:
+                expense.startAnimation(alphaUp);
+                startActivity(new Intent(this, EditActivity.class).putExtra("ID", "Expense"));
+                break;
+            case R.id.receipts_dashboard:
+                receipt.startAnimation(alphaUp);
+                startActivity(new Intent(this, EditActivity.class).putExtra("ID", "Receipt"));
+                break;
+        }
+
+
     }
 
     class CustomAdapter extends ArrayAdapter<DashBoard> {
@@ -279,16 +331,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    public void setListView(View v)
-    {
-       if( v.getId()==R.id.dashboard_projects)
+    public void setListView(View v) {
+      /* if( v.getId()==R.id.dashboard_projects)
        {
            updateTable("projects");
        }
         else if(v.getId()==R.id.dashboard_tasks)
        {
            updateTable("tasks");
-       }
+       }*/
     }
 
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="in.junctiontech.project">
+    package="in.junctiontech.project" >
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -11,15 +11,17 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-feature android:name="android.hardware.camera"
+
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="true" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
-        <activity android:name=".SplashScreenActivity">
+        android:theme="@style/AppTheme" >
+        <activity android:name=".SplashScreenActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,27 +30,27 @@
         </activity>
         <activity
             android:name=".HomeActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme"
-            android:screenOrientation="portrait"/>
+            android:label="@string/home"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme" />
         <activity
             android:name=".ReceiptActivity"
             android:label="@string/title_activity_receipt"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ExpenseActivity"
             android:label="@string/title_activity_expense"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SignUpActivity"
             android:label="@string/title_activity_sign_up"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
 
         <service
             android:name=".MyService"
             android:enabled="true"
-            android:label="MyService">
+            android:label="MyService" >
             <intent-filter>
                 <action android:name=".MyService" />
             </intent-filter>
@@ -56,7 +58,7 @@
 
         <receiver
             android:name=".MyBroadCast"
-            android:label="MyBroadCast">
+            android:label="MyBroadCast" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -69,7 +71,7 @@
         </receiver>
         <receiver
             android:name=".PMSAdmin"
-            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            android:permission="android.permission.BIND_DEVICE_ADMIN" >
             <meta-data
                 android:name="android.app.device_admin"
                 android:resource="@xml/device_admin_sample" />
@@ -82,46 +84,49 @@
         <activity
             android:name=".HelpActivity"
             android:label="@string/title_activity_help"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AboutUsActivity"
             android:label="@string/title_activity_about_us"
-            android:theme="@style/Base.Theme.AppCompat.Light.Dialog.Alert"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog.Alert" />
         <activity
             android:name=".ContactUsActivity"
             android:label="@string/title_activity_contact_us"
-            android:theme="@style/Base.Theme.AppCompat.Light.Dialog.Alert"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog.Alert" />
         <activity
             android:name=".SettingActivity"
             android:label="@string/title_activity_setting" />
-        <activity android:name=".PMSAdminActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".PMSAdminActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register"
             android:screenOrientation="portrait"
-            />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ProjectActivity"
             android:label="@string/title_activity_projectList"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".TaskActivity"
             android:label="@string/title_activity_taskList"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".DetailActivity"
-            android:label="@string/title_activity_details"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".ImageSelectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ImageSelectionActivity"
             android:label="@string/title_activity_image"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".ViewImage"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ViewImage"
             android:label="@string/title_activity_viewImage"
-            android:theme="@style/Base.Theme.AppCompat.Light.Dialog.Alert"
-            android:screenOrientation="portrait"></activity>
-
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog.Alert" />
+        <activity android:name=".DashboardActivity" >
+        </activity>
+        <activity android:name=".EditActivity" >
+        </activity>
     </application>
 
 </manifest>

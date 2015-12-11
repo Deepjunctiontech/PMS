@@ -34,6 +34,14 @@ public class Expense extends Task {
         this.status=status;
     }
 
+    public Expense(String project_id, String task_id, String description, String date,String amount) {
+        this.project_id=project_id;
+        this.task_id=task_id;
+        this.description=description;
+        this.date=date;
+        this.amount=amount;
+    }
+
 
 
     /*

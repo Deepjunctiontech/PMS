@@ -7,8 +7,8 @@ interface PMSOtherConstant {
     int REPEAT_DURATION = 1000 * 15 * 60;
     int SPLASH_SCREEN_DURATION = 6000;
     int GPS_DURATION = 30000;
-    String URL_UPDATE = "http://junctiondev.cloudapp.net/appmanager/remoteapi/locationUpdate";
-    String URL_REGISTER = "http://junctiondev.cloudapp.net/appmanager/remoteapi/employeeRegister";
+    String URL_UPDATE = "http://junctiondev.cloudapp.net/zeroerp/remoteapi/locationUpdate";
+    String URL_REGISTER = "http://junctiondev.cloudapp.net/zeroerp/remoteapi/employeeRegister";
     String SENDING_NUMBER = "0";
     String IMAGE_DIRECTORY_NAME_ORIGINAL = "PMS-ORIGINAL";
     String IMAGE_DIRECTORY_NAME_THUMBNAIL = "PMS-THUMBNAIL";

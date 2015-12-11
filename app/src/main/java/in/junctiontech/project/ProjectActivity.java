@@ -289,7 +289,7 @@ public class ProjectActivity extends AppCompatActivity {
         // TODO Auto-generated method stub
         super.onCreateContextMenu(menu, v, menuInfo);
         getMenuInflater().inflate(R.menu.menu_long, menu);
-        menu.setHeaderTitle("Select Option");
+        menu.setHeaderTitle("Select Option For Project");
 
     }
 

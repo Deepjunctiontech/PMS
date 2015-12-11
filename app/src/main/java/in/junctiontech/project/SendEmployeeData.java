@@ -26,11 +26,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import in.junctiontech.project.employee.Employee;
 import in.junctiontech.project.employee.EmployeeLocation;
 import in.junctiontech.project.employee.EmployeeOtherDetails;
-import in.junctiontech.project.employeeproject.Expense;
-import in.junctiontech.project.employeeproject.Receipt;
 
 import static in.junctiontech.project.PMSOtherConstant.URL_UPDATE;
 
@@ -50,7 +47,7 @@ public class SendEmployeeData {
     private String data;
 
 
-    private SendEmployeeData(Context context) {
+    private SendEmployeeData(final Context context) {
         this.context = context;
         queue = Volley.newRequestQueue(context);
         gson = new GsonBuilder().create();
@@ -62,44 +59,42 @@ public class SendEmployeeData {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        Utility.showToast(context, response);
                         //TODO check success from server
-                        if (response.equalsIgnoreCase("true")) {
+                       /* if (response.equalsIgnoreCase("true")) {
                             Log.d("onResponse()", "Success");
                             Toast.makeText(SendEmployeeData.this.context, "Entry Deleted",
                                     Toast.LENGTH_SHORT).show();
                             pmsDatabase.deleteEmployeeData();
-                        }
+                        }*/
+                        Log.d("onResponse()", response);
                         try {
 
                             JSONObject jsonObject = new JSONObject(response);
+                            if("success".equalsIgnoreCase(jsonObject.getString("status"))) {
 
-                            JSONArray jsonArray = jsonObject.getJSONArray("employee_list");
+                                JSONArray jsonArray = jsonObject.getJSONArray("employee_list");
 
-                            int countRecord = jsonArray.length();
-                            if (countRecord > 0) {
-                                List<EmployeeLocation> employeeLocations = new ArrayList<>(countRecord);
+                                int countRecord = jsonArray.length();
+                                if (countRecord > 0) {
+                                    List<EmployeeLocation> employeeLocations = new ArrayList<>(countRecord);
 
-                                for (int i = 0; i < countRecord; i++) {
-                                    JSONObject n = jsonArray.getJSONObject(i);
-                                    if ("success".equalsIgnoreCase(n.getString("status"))) {
-                                        employeeLocations.add(new EmployeeLocation(n.getString("employeeLocationDate"),
-                                                n.getString("employeeLocationTime")));
+                                    for (int i = 0; i < countRecord; i++) {
+                                        JSONObject n = jsonArray.getJSONObject(i);
+                                        if ("success".equalsIgnoreCase(n.getString("status"))) {
+                                            employeeLocations.add(new EmployeeLocation(n.getString("employeeLocationDate"),
+                                                    n.getString("employeeLocationTime")));
+                                        }
                                     }
+
+                                    pmsDatabase.updateEmployeeStatus(employeeLocations);
+
                                 }
-
-                               pmsDatabase.updateEmployeeStatus(employeeLocations);
-
                             }
-
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-
-
-
 
 
                         // Display the first 500 characters of the response string.
@@ -114,8 +109,7 @@ public class SendEmployeeData {
                 if (error instanceof NoConnectionError) {
                     err = "No Internet Access\nCheck Your Internet Connection.";
                 }
-
-                 Toast.makeText(SendEmployeeData.this.context, err, Toast.LENGTH_LONG).show();
+                Utility.showToast(SendEmployeeData.this.context, "Error:"+err);
 
             }
 
@@ -153,6 +147,7 @@ public class SendEmployeeData {
 
         if (pmsDatabase.getNumberOfEmployeeRecord() > 0) {
             data = gson.toJson(pmsDatabase.getEmployeeData(employeeOtherDetails));
+            Log.d("employeeData", data);
             queue.add(stringRequest);
         }
 

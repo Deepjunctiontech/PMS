@@ -17,6 +17,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -209,7 +210,11 @@ public class ReceiptActivity extends AppCompatActivity {
     }
 
     public void receiptSaving(View view) {
-        if (!"null".equalsIgnoreCase(receipt.getProject_id())) {
+        receipt_spinner_project.setFocusableInTouchMode(false);
+        receipt_spinner_project.clearFocus();
+
+
+        if (!"null".equalsIgnoreCase(receipt.getProject_id()) && !isEmptyMaterial() && !isEmptyQuantity()) {
             receipt.setQuantity(receipt_quantity.getText().toString());
             receipt.setMaterial(receipt_material.getText().toString());
             receipt.setRate(receipt_rate.getText().toString());
@@ -219,11 +224,46 @@ public class ReceiptActivity extends AppCompatActivity {
                     getSharedPreferences("Login", MODE_PRIVATE).getString("user_id", "Not Found")
                     + "," + "PROJECT_ID=" + receipt.getProject_id() + "," + "TASK_ID=" + receipt.getTask_id() + "," +
                     (new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date())));
-            pmsDatabase.setReceiptData(receipt);
-        } else
-            Utility.showToast(this, "Please select project id");
+
+            if(pmsDatabase.setReceiptData(receipt))
+                finish();
+
+        } else {
+            if ("null".equalsIgnoreCase(receipt.getProject_id())) {
+                Utility.showToast(this, "Please select project id");
+                TextView errorText = (TextView) receipt_spinner_project.getSelectedView();
+                errorText.setError("invalid projectid");
+                receipt_spinner_project.setFocusableInTouchMode(true);
+                receipt_spinner_project.requestFocus();
+                //errorText.setTextColor(Color.RED);just to highlight that this is an error
+                //errorText.setText("my actual error text");//changes the selected item text to this
+            } else if (isEmptyMaterial()) {
+                receipt_material.setError("please enter material");
+                receipt_material.setFocusableInTouchMode(true);
+                receipt_material.requestFocus();
+
+            } else if (isEmptyQuantity()) {
+                receipt_quantity.setError("please enter quantity");
+                receipt_quantity.setFocusableInTouchMode(true);
+                receipt_quantity.requestFocus();
+            }
+
+
+        }
+
 
     }
+
+    private boolean isEmptyMaterial() {
+        return receipt_material.getText() == null || receipt_material.getText().toString() == null
+                || receipt_material.getText().toString().equals("") || receipt_material.getText().toString().isEmpty();
+    }
+
+    private boolean isEmptyQuantity() {
+        return receipt_quantity.getText() == null || receipt_quantity.getText().toString() == null
+                || receipt_quantity.getText().toString().equals("") || receipt_quantity.getText().toString().isEmpty();
+    }
+
 
     public void selectDate(View v) {
         showDialog(999);

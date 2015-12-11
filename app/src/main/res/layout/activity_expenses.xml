@@ -1,270 +1,280 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical"
-    android:padding="@dimen/activity_vertical_margin"
+
     tools:context="in.junctiontech.project.Expenses">
 
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/expenses1"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/single_line_box"
-            android:background="@drawable/mybox"
-            android:elevation="@dimen/oll_elevation"
-            android:orientation="horizontal">
-
-            <TextView
-
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="50"
-                android:ellipsize="marquee"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:freezesText="true"
-                android:gravity="center"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:padding="@dimen/layout_padding"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
-                android:text="Select Project"
-                android:textColor="@color/actionbarcolor"
-                android:textSize="@dimen/textview_size" />
-
-            <View
-                android:layout_width="@dimen/view_width"
-                android:layout_height="@dimen/view_height"
-                android:layout_gravity="center"
-                android:background="@color/divider"></View>
-
-
-            <Spinner
-                android:id="@+id/expenses_spinner_project"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="50"
-                android:entries="@array/list_of_projects"
-                android:gravity="center"
-                android:prompt="@string/open"
-
-                />
-            <!--android:dropDownWidth="100dp"-->
-
-
-        </LinearLayout>
-
+    <ScrollView
+        android:layout_weight="80"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_vertical_margin">
 
         <LinearLayout
-            android:id="@+id/expenses2"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/single_line_box"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:background="@drawable/mybox"
-            android:clipToPadding="false"
-            android:elevation="@dimen/oll_elevation"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="50"
-                android:gravity="center"
-                android:padding="@dimen/layout_padding"
-                android:text="Select Task"
-                android:textColor="@color/actionbarcolor"
-                android:textSize="@dimen/textview_size" />
-
-            <View
-                android:layout_width="@dimen/view_width"
-                android:layout_height="@dimen/view_height"
-                android:layout_gravity="center"
-                android:background="@color/divider"></View>
-
-
-            <Spinner
-                android:id="@+id/expenses_spinner_task"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="50"
-                android:entries="@array/list_of_tasks"
-                android:gravity="center"
-                android:prompt="@string/open"
-
-                />
-            <!--android:dropDownWidth="100dp"-->
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/expenses3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:background="@drawable/mybox"
-            android:elevation="@dimen/oll_elevation"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/expenses1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/oll_padding"
-                android:text="Select Expenses"
-                android:textColor="@color/actionbarcolor"
-                android:textSize="@dimen/textview_size" />
+                android:layout_height="@dimen/single_line_box"
+                android:background="@drawable/mybox"
+                android:elevation="@dimen/oll_elevation"
+                android:orientation="horizontal">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/view_width"
-                android:background="@color/divider" />
+                <TextView
 
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/oll_padding"
-
-                >
-
-                <RadioButton
-                    android:id="@+id/expenses_rb_daily"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
                     android:layout_weight="50"
-                    android:checked="true"
-                    android:text="Daily"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:freezesText="true"
+                    android:gravity="center"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:padding="@dimen/layout_padding"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="Select Project"
+                    android:textColor="@color/actionbarcolor"
+                    android:textSize="@dimen/textview_size" />
+
+                <View
+                    android:layout_width="@dimen/view_width"
+                    android:layout_height="@dimen/view_height"
+                    android:layout_gravity="center"
+                    android:background="@color/divider"></View>
+
+
+                <Spinner
+                    android:id="@+id/expenses_spinner_project"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50"
+                    android:entries="@array/list_of_projects"
+                    android:gravity="center"
+                    android:prompt="@string/open"
+
+                    />
+                <!--android:dropDownWidth="100dp"-->
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/expenses2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/single_line_box"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:background="@drawable/mybox"
+                android:clipToPadding="false"
+                android:elevation="@dimen/oll_elevation"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:padding="@dimen/layout_padding"
+                    android:text="Select Task"
+                    android:textColor="@color/actionbarcolor"
+                    android:textSize="@dimen/textview_size" />
+
+                <View
+                    android:layout_width="@dimen/view_width"
+                    android:layout_height="@dimen/view_height"
+                    android:layout_gravity="center"
+                    android:background="@color/divider"></View>
+
+
+                <Spinner
+                    android:id="@+id/expenses_spinner_task"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50"
+                    android:entries="@array/list_of_tasks"
+                    android:gravity="center"
+                    android:prompt="@string/open"
+
+                    />
+                <!--android:dropDownWidth="100dp"-->
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/expenses3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:background="@drawable/mybox"
+                android:elevation="@dimen/oll_elevation"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/oll_padding"
+                    android:text="Select Expenses"
+                    android:textColor="@color/actionbarcolor"
+                    android:textSize="@dimen/textview_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_width"
+                    android:background="@color/divider" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/oll_padding"
+
+                    >
+
+                    <RadioButton
+                        android:id="@+id/expenses_rb_daily"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:checked="true"
+                        android:text="Daily"
+
+                        />
+
+                    <RadioButton
+                        android:id="@+id/expenses_rb_weekly"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:text="Weekly" />
+
+                </RadioGroup>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/expenses5"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/single_line_box"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:background="@drawable/mybox"
+                android:clipToPadding="false"
+                android:elevation="@dimen/oll_elevation"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:padding="@dimen/layout_padding"
+                    android:text="Select Date"
+                    android:textColor="@color/actionbarcolor"
+                    android:textSize="@dimen/textview_size" />
+
+
+                <View
+                    android:layout_width="@dimen/view_width"
+                    android:layout_height="@dimen/view_height"
+                    android:layout_gravity="center"
+                    android:background="@color/divider"></View>
+
+                <Button
+                    android:id="@+id/expense_date"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:onClick="selectDate"
 
                     />
 
-                <RadioButton
-                    android:id="@+id/expenses_rb_weekly"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="50"
-                    android:text="Weekly" />
-
-            </RadioGroup>
-        </LinearLayout>
+            </LinearLayout>
 
 
-        <LinearLayout
-            android:id="@+id/expenses5"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/single_line_box"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:background="@drawable/mybox"
-            android:clipToPadding="false"
-            android:elevation="@dimen/oll_elevation"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="50"
-                android:gravity="center"
-                android:padding="@dimen/layout_padding"
-                android:text="Select Date"
-                android:textColor="@color/actionbarcolor"
-                android:textSize="@dimen/textview_size" />
-
-
-            <View
-                android:layout_width="@dimen/view_width"
-                android:layout_height="@dimen/view_height"
-                android:layout_gravity="center"
-                android:background="@color/divider"></View>
-
-            <Button
-                android:id="@+id/expense_date"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="50"
-                android:gravity="center"
-                android:onClick="selectDate"
-
-                />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/expenses4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:background="@drawable/mybox"
-            android:elevation="@dimen/oll_elevation"
-            android:orientation="vertical"
-            android:padding="@dimen/text_oll_size">
-
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
+                android:id="@+id/expenses4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:background="@drawable/mybox"
+                android:elevation="@dimen/oll_elevation"
+                android:orientation="vertical"
+                android:padding="@dimen/text_oll_size">
 
-                <EditText
-                    android:id="@+id/expenses_amount"
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/oll_margin"
-                    android:ems="10"
-                    android:hint="Amount"
-                    android:inputType="number"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/expenses_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/oll_margin"
+                        android:ems="10"
+                        android:hint="Amount"
+                        android:inputType="number"
 
 
-                    />
-            </android.support.design.widget.TextInputLayout>
+                        />
+                </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+                <android.support.design.widget.TextInputLayout
 
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/expenses_type"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/oll_margin"
-                    android:ems="10"
-                    android:hint="Type" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputLayout
+                    <EditText
+                        android:id="@+id/expenses_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/oll_margin"
+                        android:ems="10"
+                        android:hint="Type" />
+                </android.support.design.widget.TextInputLayout>
 
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                <android.support.design.widget.TextInputLayout
 
-                <EditText
-                    android:id="@+id/expenses_description"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/oll_margin"
-                    android:hint="Description" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/expenses_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/oll_margin"
+                        android:hint="Description" />
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+
+
 
         </LinearLayout>
+    </ScrollView>
+    <Button
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="SAVE"
-            android:id="@+id/expenseSaving"
-            android:onClick="expenseSaving"/>
+        android:id="@+id/expenseSaving"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="expenseSaving"
+        android:background="?attr/selectableItemBackground"
+        android:text="SAVE" />
+    <include
+        layout="@layout/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
-        <include
-            layout="@layout/footer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            />
-    </LinearLayout>
-</ScrollView>
+        />
+</LinearLayout>
 

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="75"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <TextView
+                    android:id="@+id/edit_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="50"
+                    android:text="   "
+                    android:textColor="#f90202"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Project - "
+                    android:textColor="#006699"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/edit_projectId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#1f1f21"
+                    android:layout_weight="25"
+                    android:text="   "
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Task - "
+                    android:textColor="#006699"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/edit_taskId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#1f1f21"
+                    android:layout_weight="25"
+                    android:text="   "
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+
+
+            </LinearLayout>
+
+
+            <!--<Space
+                android:layout_width="0dp"
+                android:layout_height="3dp" />-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description - "
+                    android:textColor="#006699"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/edit_description"
+                    android:singleLine="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="#000000"/>
+
+            </LinearLayout>
+          <!--  <Space
+                android:layout_width="0dp"
+                android:layout_height="3dp" />-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ammount - "
+                    android:textColor="#006699"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/edit_ammount"
+                    android:singleLine="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="#000000"/>
+
+            </LinearLayout>
+
+
+
+
+           <!-- <TextView
+                android:id="@+id/project_task_startDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                android:textStyle="bold" />-->
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+

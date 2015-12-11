@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import in.junctiontech.project.employeeproject.Expense;
 
 /**
  * Created by Junction Software on 1-Oct-15.
@@ -40,6 +43,8 @@ public class ExpenseActivity extends AppCompatActivity {
     private Calendar calendar;
     private int year, month, day;
     private Button expense_date;
+    private String projectId, taskId;
+    private String key;
 
 
     @Override
@@ -49,6 +54,28 @@ public class ExpenseActivity extends AppCompatActivity {
         animation();
         referenceInitialization();
         eventRegistration();
+        update();
+
+    }
+
+    protected void update() {
+        //
+       key= this.getIntent().getStringExtra("KEY");
+        if(key!=null) {
+            Expense expense = pmsDatabase.getExpenseDataById(key);
+            if (expense != null) {
+            /*expense.getProject_id();
+            expense.getTask_id();*/
+                expense_date.setText(expense.getDate());
+                expenses_type.setText(expense.getExpense_type());
+                expenses_amount.setText(expense.getAmount());
+                expenses_description.setText(expense.getDescription());
+                if ("Weekly".equalsIgnoreCase(expense.getType())) {
+                    expenses_rb_weekly.setChecked(true);
+                }
+            }
+        }
+
 
     }
 
@@ -59,7 +86,7 @@ public class ExpenseActivity extends AppCompatActivity {
         day = calendar.get(Calendar.DAY_OF_MONTH);
 
         expense_date = (Button) findViewById(R.id.expense_date);
-        String curr = day + "/" + (month + 1) + "/" + year + "";
+        String curr = year + "-" + (month + 1) + "-" + day;
         expense_date.setText(curr);
 
         expense = new in.junctiontech.project.employeeproject.Expense();
@@ -226,25 +253,52 @@ public class ExpenseActivity extends AppCompatActivity {
     }
 
     public void expenseSaving(View view) {
+        expenses_spinner_project.setFocusableInTouchMode(false);
+        expenses_spinner_project.clearFocus();
 
-        if (!"null".equalsIgnoreCase(expense.getProject_id())) {
+
+        if (!"null".equalsIgnoreCase(expense.getProject_id()) && !isEmptyAmount()) {
             expense.setExpense_type((expenses_rb_daily.isChecked() ? expenses_rb_daily.getText() : expenses_rb_weekly.getText()).toString());
             expense.setAmount(expenses_amount.getText().toString());
             expense.setDescription(expenses_description.getText().toString());
             expense.setType(expenses_type.getText().toString());
             expense.setDate(expense_date.getText().toString());
 
-
+            if(key==null)
             expense.setKey("USER_ID=" +
                     getSharedPreferences("Login", MODE_PRIVATE).getString("user_id", "Not Found")
                     + "," + "PROJECT_ID=" + expense.getProject_id() + "," + "TASK_ID=" + expense.getTask_id() + "," +
                     (new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date())));
+            else
+            expense.setKey(key);
 
+            Utility.showToast(this,  key);
 
-            pmsDatabase.setExpenseData(expense);
-        } else
-            Utility.showToast(this, "Please select project id");
+            if (pmsDatabase.setExpenseData(expense))
+                finish();
 
+        } else {
+            if ("null".equalsIgnoreCase(expense.getProject_id())) {
+                Utility.showToast(this, "please select project id");
+                TextView errorText = (TextView) expenses_spinner_project.getSelectedView();
+                errorText.setError("invalid projectid");
+                expenses_spinner_project.setFocusableInTouchMode(true);
+                expenses_spinner_project.requestFocus();
+                //errorText.setTextColor(Color.RED);just to highlight that this is an error
+                //errorText.setText("my actual error text");//changes the selected item text to this
+            } else if (isEmptyAmount()) {
+                expenses_amount.setError("please enter amount");
+                expenses_amount.setFocusableInTouchMode(true);
+                expenses_amount.requestFocus();
+
+            }
+        }
+
+    }
+
+    private boolean isEmptyAmount() {
+        return expenses_amount.getText() == null || expenses_amount.getText().toString() == null
+                || expenses_amount.getText().toString().equals("") || expenses_amount.getText().toString().isEmpty();
     }
 
     public void selectDate(View v) {
@@ -265,7 +319,7 @@ public class ExpenseActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            expense_date.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+            expense_date.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
 
         }
     };

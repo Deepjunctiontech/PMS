@@ -2,11 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#f5933f">
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="15dp"></View>
+        android:layout_height="6dp"></View>
 
     <TextView
 
@@ -14,11 +15,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:autoLink="all"
+        android:textColor="#f2f5f5"
         android:text="www.junctiontech.in" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="5dp"></View>
+        android:layout_height="4dp"></View>
 
     <TextView
 
@@ -26,6 +28,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:autoLink="all"
+        android:textColor="#f2f5f5"
         android:text="8109069226" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"></View>
 
 </LinearLayout>

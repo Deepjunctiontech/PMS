@@ -18,6 +18,13 @@
             android:summary="ON / OFF "
             android:title="Device Administrator" />
 
+        <EditTextPreference
+            android:id="@+id/organization_name"
+            android:dialogIcon="@null"
+            android:editable="false"
+            android:key="organization_name"
+            android:title="Organization Name"></EditTextPreference>
+
         <!--<ListPreference
             android:title="DEVICE ADMINISTRATOR"
             android:key="device_admin1"

@@ -7,134 +7,132 @@
     tools:context=".Home">
 
 
-        <LinearLayout
-            android:id="@+id/main_contain"
+    <LinearLayout
+        android:id="@+id/main_contain"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:background="@color/actionbarcolor"
+            android:elevation="@dimen/oll_elevation"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:title="@string/navigation_home"></android.support.v7.widget.Toolbar>
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/app_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/actionbarcolor"
-                android:elevation="@dimen/oll_elevation"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                android:title="@string/navigation_home"></android.support.v7.widget.Toolbar>
 
-            <Button
-                android:id="@+id/dashboard_projects"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="setListView"
-                android:text="Dashboard Projects" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
 
-            <Button
-                android:id="@+id/dashboard_tasks"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="setListView"
-                android:text="Dashboard Tasks" />
-
+            android:weightSum="2">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/mybox"
-                android:orientation="vertical">
+                android:layout_weight="1"
+                android:background="#28FFBA54"
+                android:orientation="horizontal"
+                android:paddingBottom="40dp"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:paddingTop="40dp"
+                android:weightSum="2">
 
-                <LinearLayout
+                <Button
+                    android:id="@+id/projects_dashboard"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="10dp"
-                    android:weightSum="13">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:gravity="center"
-                        android:text="PID"
-                        android:textColor="@color/actionbarcolor"
-                        android:textSize="15sp" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="20dp"
-                        android:background="@color/divider"
-                        android:gravity="center"></View>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:gravity="center"
-                        android:text="TID"
-                        android:textColor="@color/actionbarcolor"
-                        android:textSize="15sp" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="20dp"
-                        android:background="@color/divider"
-                        android:gravity="center"></View>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:text="Expense"
-                        android:textColor="@color/actionbarcolor"
-                        android:textSize="15sp" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="20dp"
-                        android:background="@color/divider"></View>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:text="Receipt"
-                        android:textColor="@color/actionbarcolor"
-                        android:textSize="15sp" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="20dp"
-                        android:background="@color/divider"></View>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:text="Image"
-                        android:textColor="@color/actionbarcolor"
-                        android:textSize="15sp" />
-
-                </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/projectdashboard"
+                    android:gravity="bottom|center"
+                    android:onClick="onClick"
+                    android:scaleType="fitXY"
+                    android:text="PROJECT"
+                    android:textSize="20sp" />
 
                 <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"></View>
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"></View>
 
-                <ListView
-                    android:id="@+id/lv_for_dashboard"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></ListView>
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
 
+                    <ImageButton
+                        android:id="@+id/tasks_dashboard"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:clickable="true"
+                        android:onClick="onClick"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/taskdashboard" />
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="false"
+                        android:gravity="bottom|center"
+                        android:text="TASK"
+                        android:textSize="20sp" />
+                </FrameLayout>
             </LinearLayout>
 
+          <!--  <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#121567"></View>
+-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#28FFBA54"
+                android:orientation="horizontal"
+                android:paddingBottom="40dp"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:paddingTop="40dp"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/expenses_dashboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/expensesdashboard"
+                    android:gravity="bottom|center"
+                    android:onClick="onClick"
+                    android:scaleType="fitXY"
+                    android:text="EXPENSES"
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"></View>
+
+
+                <Button
+                    android:id="@+id/receipts_dashboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/receiptsdashboard"
+                    android:gravity="bottom|center"
+                    android:onClick="onClick"
+                    android:scaleType="fitXY"
+                    android:text="RECEIPTS"
+                    android:textSize="20sp" />
+            </LinearLayout>
 
             <include
+                android:layout_alignParentBottom="true"
                 layout="@layout/footer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -143,6 +141,10 @@
 
 
         </LinearLayout>
+
+
+    </LinearLayout>
+
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navi"

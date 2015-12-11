@@ -4,13 +4,13 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">#f77c14</item>
 
-          <item name="colorAccent">#f77c14</item>
-     <!--  <item name="android:textColorPrimary">#55ff1c</item>
-       <item name="android:textColorSecondary">#3affe7</item>
-        <item name="android:textColorHint">#ffd50e</item>
-        <item name="android:colorActivatedHighlight">#f724cd</item>
-        <item name="android:navigationBarColor" tools:ignore="NewApi">#ffff</item>
-        <item name="actionMenuTextColor">#000099</item>-->
+        <!--    <item name="colorAccent">#f77c14</item>
+       <item name="android:textColorPrimary">#55ff1c</item>
+        <item name="android:textColorSecondary">#3affe7</item>
+         <item name="android:textColorHint">#ffd50e</item>
+         <item name="android:colorActivatedHighlight">#f724cd</item>
+         <item name="android:navigationBarColor" tools:ignore="NewApi">#ffff</item>
+         <item name="actionMenuTextColor">#000099</item>-->
 
 
 

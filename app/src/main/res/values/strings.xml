@@ -37,4 +37,6 @@
     <string name="navigation_image">Image</string>
     <string name="title_activity_viewImage">Image View</string>
     <string name="navigation_setting">Setting</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="home">Home</string>
 </resources>

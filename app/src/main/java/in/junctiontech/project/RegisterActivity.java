@@ -68,7 +68,15 @@ public class RegisterActivity extends AppCompatActivity {
         final String mobile_no = edit_mobile_no.getText().toString();
         final String password = edit_password.getText().toString();
         final String organization_name = edit_organization_name.getText().toString();
-        if (name.length() == 0) {
+        boolean checkOrganization=isEmptyOrganization();
+
+
+        if(checkOrganization)
+        {
+            edit_organization_name.requestFocus();
+            edit_organization_name.setError("field cannot be blank");
+        }
+        else if (name.length() == 0) {
             edit_name.requestFocus();
             edit_name.setError("field cannot be blank");
         } else if (mobile_no.length() == 0 || mobile_no.length() < 10) {
@@ -133,6 +141,13 @@ public class RegisterActivity extends AppCompatActivity {
 
         }
 
+
+    }
+
+    private boolean isEmptyOrganization() {
+        return edit_organization_name.getText() == null
+                || edit_organization_name.getText().toString().equals("") || edit_organization_name.getText().toString().isEmpty()
+                || edit_organization_name.getText().toString() == null; // TODO PUT THIS CONDITION AT LAST IN OLL ACTIVITY
 
     }
 

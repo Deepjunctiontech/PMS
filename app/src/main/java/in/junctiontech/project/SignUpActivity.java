@@ -5,8 +5,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -29,7 +31,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SignUpActivity extends Activity {
+public class SignUpActivity extends AppCompatActivity {
 
     private TextInputLayout user_text, pass_text, organization_text;
     private EditText username, password, organizationname;
@@ -60,9 +62,9 @@ public class SignUpActivity extends Activity {
 
     public void submit(View v) {
         if (v.getId() == R.id.btn_login) {
-            submit();
-            // startActivity(new Intent(SignUpActivity.this, HomeActivity.class));
-            //finish();
+           submit();
+           //  startActivity(new Intent(SignUpActivity.this, HomeActivity.class));
+           // finish();
         } else
             startActivity(new Intent(this, RegisterActivity.class));
     }
@@ -130,13 +132,18 @@ public class SignUpActivity extends Activity {
                                 //  JSONObject js = new JSONObject(jsonObject.getString("data"));
                                 //
                                 SharedPreferences.Editor editor = sp.edit();
-                                editor.putString("user_id",jsonObject.getString("user_id"));
+                                editor.putString("user_id", jsonObject.getString("user_id"));
                                 editor.putString("user_name", username.getText().toString());
                                 editor.putString("user_pass", password.getText().toString());
                                 editor.putString("user_organization", organizationname.getText().toString());
                                 //   editor.putString("userID", userID);
 
                                 editor.commit();
+                                SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(SignUpActivity.this);
+                                editor = sharedPrefs.edit();
+                                editor.putString("organization_name", organizationname.getText().toString());
+                                editor.commit();
+
                                 startActivity(new Intent(SignUpActivity.this, HomeActivity.class));
                                 finish();
                             } else {
