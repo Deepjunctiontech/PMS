@@ -66,6 +66,8 @@ public class ExpenseActivity extends AppCompatActivity {
             if (expense != null) {
             /*expense.getProject_id();
             expense.getTask_id();*/
+                expenses_spinner_project.setEnabled(false);
+                expenses_spinner_task.setEnabled(false);
                 expense_date.setText(expense.getDate());
                 expenses_type.setText(expense.getExpense_type());
                 expenses_amount.setText(expense.getAmount());

@@ -4,7 +4,7 @@
         android:drawable="@drawable/btn" /> <!-- pressed -->
     <item android:state_focused="true"
         android:drawable="@drawable/bg_list" /> <!-- focused -->
-    <item android:drawable="@drawable/dashboardproject"
+    <item android:drawable="@drawable/project_dashboard_new"
         /> <!-- default -->
 </selector>
 

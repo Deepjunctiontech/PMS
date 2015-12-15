@@ -13,14 +13,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.Comparator;
 import java.util.List;
 
-import in.junctiontech.project.employeeproject.DashBoard;
 import in.junctiontech.project.employeeproject.Expense;
-import in.junctiontech.project.employeeproject.Task;
 
-public class EditActivity extends AppCompatActivity {
+public class ExpenseEditActivity extends AppCompatActivity {
 
     private CustomAdapter customAdapter;
 
@@ -74,13 +71,13 @@ public class EditActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Expense expense = customAdapter.getItem(position);
-                Intent intent = new Intent(EditActivity.this, ExpenseActivity.class);
+                Intent intent = new Intent(ExpenseEditActivity.this, ExpenseActivity.class);
                 intent.putExtra("PROJECT_ID", expense.getProject_id());
                 intent.putExtra("TASK_ID", expense.getTask_id());
                 intent.putExtra("KEY", expense.getKey());
                 startActivity(intent);
 
-             //   Utility.showToast(EditActivity.this,((Expense)parent.getItemAtPosition(position)).getDate() );
+             //   Utility.showToast(ExpenseEditActivity.this,((Expense)parent.getItemAtPosition(position)).getDate() );
             }
         });
 /*

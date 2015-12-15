@@ -253,11 +253,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.expenses_dashboard:
                 expense.startAnimation(alphaUp);
-                startActivity(new Intent(this, EditActivity.class).putExtra("ID", "Expense"));
+                startActivity(new Intent(this, ExpenseEditActivity.class).putExtra("ID", "Expense"));
                 break;
             case R.id.receipts_dashboard:
                 receipt.startAnimation(alphaUp);
-                startActivity(new Intent(this, EditActivity.class).putExtra("ID", "Receipt"));
+                startActivity(new Intent(this, ExpenseEditActivity.class).putExtra("ID", "Receipt"));
                 break;
         }
 

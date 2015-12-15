@@ -125,7 +125,7 @@
             android:theme="@style/Base.Theme.AppCompat.Light.Dialog.Alert" />
         <activity android:name=".DashboardActivity" >
         </activity>
-        <activity android:name=".EditActivity" >
+        <activity android:name=".ExpenseEditActivity" >
         </activity>
     </application>
 
