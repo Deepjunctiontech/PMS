@@ -15,7 +15,9 @@ public class Employee {
     protected String employeeIMEI;   //  TODO MAKE IT INT
     protected String employeeOrganizationName;
     protected String employeeMobileNumber;
-    private String employeePassword; // may be change to protected
+    private String employeePassword;
+     private String employeeId;
+     // may be change to protected
 
     /* Constructor  */
 
@@ -31,8 +33,9 @@ public class Employee {
         // -- internally call constructor of this class of no argument constructor (inheritance rule)
     }
 
-    public Employee(Context context, String employeeName, String employeeOrganizationName, String employeeMobileNumber, String employeePassword) {
+    public Employee(Context context, String employeeName, String employeeOrganizationName, String employeeMobileNumber, String employeePassword,String employeeId) {
         this(context);
+        this.employeeId=employeeId;
         this.employeeName = employeeName;
         this.employeeOrganizationName = employeeOrganizationName;
         this.employeeMobileNumber = employeeMobileNumber;
@@ -42,6 +45,10 @@ public class Employee {
    /*
     getter methods
     */
+
+    public String getEmployeeId() {
+        return employeeId;
+    }
 
     public String getEmployeeName() {
         return employeeName;
@@ -66,6 +73,10 @@ public class Employee {
     /*
     setter methods
     */
+
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
 
     public void setEmployeeName(String employeeName) {
         this.employeeName = employeeName;

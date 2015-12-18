@@ -97,7 +97,7 @@
             android:theme="@style/Base.Theme.AppCompat.Light.Dialog.Alert" />
         <activity
             android:name=".SettingActivity"
-            android:label="@string/title_activity_setting" />
+            android:label="@string/navigation_setting" />
         <activity
             android:name=".PMSAdminActivity"
             android:screenOrientation="portrait" />
@@ -125,7 +125,11 @@
             android:theme="@style/Base.Theme.AppCompat.Light.Dialog.Alert" />
         <activity android:name=".DashboardActivity" >
         </activity>
-        <activity android:name=".ExpenseEditActivity" >
+        <activity android:name=".ExpenseEditActivity"
+            android:label="@string/title_activity_expense">
+        </activity>
+        <activity android:name=".ReceiptEditActivity"
+            android:label="@string/title_activity_receipt">
         </activity>
     </application>
 

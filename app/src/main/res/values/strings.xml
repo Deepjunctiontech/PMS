@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PMS</string>
+    <string name="app_name">Project</string>
 
     <string name="hello_world">Home Screen</string>
     <string name="action_settings">Settings</string>
@@ -27,7 +27,6 @@
     <string name="title_activity_about_us">About Us</string>
     <string name="title_activity_help">Help</string>
     <string name="title_activity_contact_us">Contact Us</string>
-    <string name="title_activity_setting">Setting</string>
     <string name="title_activity_task">TaskActivity</string>
     <string name="title_activity_register">Register</string>
     <string name="title_activity_projectList">Project List</string>
@@ -36,7 +35,8 @@
     <string name="title_activity_details">Details</string>
     <string name="navigation_image">Image</string>
     <string name="title_activity_viewImage">Image View</string>
-    <string name="navigation_setting">Setting</string>
+    <string name="navigation_setting">Settings</string>
     <string name="dashboard">Dashboard</string>
     <string name="home">Home</string>
+    <string name="navigation_sync">Sync</string>
 </resources>

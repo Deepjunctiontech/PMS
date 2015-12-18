@@ -60,8 +60,8 @@ public class ExpenseActivity extends AppCompatActivity {
 
     protected void update() {
         //
-       key= this.getIntent().getStringExtra("KEY");
-        if(key!=null) {
+        key = this.getIntent().getStringExtra("KEY");
+        if (key != null) {
             Expense expense = pmsDatabase.getExpenseDataById(key);
             if (expense != null) {
             /*expense.getProject_id();
@@ -82,6 +82,11 @@ public class ExpenseActivity extends AppCompatActivity {
     }
 
     private void referenceInitialization() {
+        String title = this.getIntent().getStringExtra("DATA");
+        if ("Edit".equalsIgnoreCase(title))
+            getSupportActionBar().setTitle("Edit - Expense");
+        else
+            getSupportActionBar().setTitle("New - Expense");
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
@@ -266,15 +271,15 @@ public class ExpenseActivity extends AppCompatActivity {
             expense.setType(expenses_type.getText().toString());
             expense.setDate(expense_date.getText().toString());
 
-            if(key==null)
-            expense.setKey("USER_ID=" +
-                    getSharedPreferences("Login", MODE_PRIVATE).getString("user_id", "Not Found")
-                    + "," + "PROJECT_ID=" + expense.getProject_id() + "," + "TASK_ID=" + expense.getTask_id() + "," +
-                    (new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date())));
+            if (key == null)
+                expense.setKey("USER_ID=" +
+                        getSharedPreferences("Login", MODE_PRIVATE).getString("user_id", "Not Found")
+                        + "," + "PROJECT_ID=" + expense.getProject_id() + "," + "TASK_ID=" + expense.getTask_id() + "," +
+                        (new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date())));
             else
-            expense.setKey(key);
+                expense.setKey(key);
 
-            Utility.showToast(this,  key);
+            Utility.showToast(this, key);
 
             if (pmsDatabase.setExpenseData(expense))
                 finish();

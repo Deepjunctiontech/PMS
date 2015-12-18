@@ -31,8 +31,14 @@ public class Receipt extends Task {
     }
 
     public Receipt(String key, String status) {
-        this.key=key;
-        this.status=status;
+        this.key = key;
+        this.status = status;
+    }
+
+    public Receipt(String project_id, String task_id, String description, String date, String material) {
+        super(project_id, task_id, description);
+        this.date = date;
+        this.material = material;
     }
 
 

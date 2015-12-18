@@ -8,6 +8,7 @@ import java.util.List;
 public class User {
     private String user_id;
     private List<Project> project_List;
+    private String database_name;
 
     public User(String user_id, List<Project> project_List) {
         this.user_id = user_id;
@@ -19,6 +20,10 @@ public class User {
     *       GETTER METHODS
     *
     * */
+
+    public String getDatabase_name() {
+        return database_name;
+    }
 
     public String getUser_id() {
         return user_id;
@@ -33,6 +38,10 @@ public class User {
     *       SETTER METHODS
     *
     * */
+
+    public void setDatabase_name(String database_name) {
+        this.database_name = database_name;
+    }
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;

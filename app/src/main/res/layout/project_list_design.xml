@@ -5,17 +5,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_list"
-        android:orientation="horizontal"
-        android:weightSum="100">
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="120dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="75"
             android:orientation="vertical"
-            android:padding="10dp">
+           >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -27,16 +25,28 @@
                     android:layout_height="wrap_content"
                     android:text="Project Id - "
                     android:textColor="#006699"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    />
 
                 <TextView
                     android:id="@+id/project_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#006699"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/project_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:textColor="#d20e0d"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+
+                    />
+
             </LinearLayout>
 
             <Space
@@ -47,50 +57,24 @@
                 android:id="@+id/project_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="H. No. 4 Janak Puri Colony Ayodhya ByPass Road BHOPAL"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:singleLine="true"
+                android:layout_weight="1"
+                />
 
 
-            <TextView
+          <!--  <TextView
                 android:id="@+id/project_startDate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:textColor="#000000"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="bold" />-->
 
         </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:layout_weight="25"
-            android:descendantFocusability="blocksDescendants"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="5dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:text="Status - "
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/project_status"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:textColor="#d20e0d"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

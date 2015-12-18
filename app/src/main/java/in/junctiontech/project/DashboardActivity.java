@@ -1,8 +1,8 @@
 package in.junctiontech.project;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,9 +27,9 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         lv_for_dashbaord = (ListView) findViewById(R.id.lv_for_dashboard);
-        pmsDatabase= PMSDatabase.getInstance(this);
+        pmsDatabase = PMSDatabase.getInstance(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getName=this.getIntent().getStringExtra("ID");
+        getName = this.getIntent().getStringExtra("ID");
         getSupportActionBar().setTitle("Dashboard - " + getName);
     }
 
@@ -47,12 +47,11 @@ public class DashboardActivity extends AppCompatActivity {
 
     public void updateTable() {
         List<DashBoard> dashBoards;
-        if("project".equalsIgnoreCase(getName))
-            dashBoards= pmsDatabase.getDashBoardProjectData();
-        else
-            dashBoards= pmsDatabase.getDashBoardTaskData();
-
+        dashBoards = pmsDatabase.getDashBoardProjectData();
         if (dashBoards != null) {
+            List<DashBoard> dashBoardTask=pmsDatabase.getDashBoardTaskData();
+            if(dashBoardTask!=null)
+                dashBoards.addAll(dashBoardTask);
             if (customAdapter == null) {
                 Log.d("ADAPTER", "CREATED");
                 customAdapter = new CustomAdapter(this, dashBoards);

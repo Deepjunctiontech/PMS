@@ -1,6 +1,8 @@
 package in.junctiontech.project;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -56,7 +58,7 @@ public class SendProjectData {
                         try {
 
                             JSONObject jsonObject = new JSONObject(response);
-
+                                                                                                // TODO one more key get from server and display in alertdialog
                             try {
 
                                 JSONArray jsonArray = jsonObject.getJSONArray("expense_list");
@@ -106,8 +108,22 @@ public class SendProjectData {
                             e.printStackTrace();
                         }
 
-                        Utility.showToast(context,response);
+                        Utility.showToast(context, response);
                         Log.d("onResponse()", response);
+                        if(HomeActivity.isActive) {
+                            ((HomeActivity) HomeActivity.getContext()).onResume();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.getContext());
+                            builder.setMessage(response).setTitle("Response from Servers")
+                                    .setCancelable(false)
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+
+
+                                        }
+                                    });
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override

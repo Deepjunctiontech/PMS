@@ -1,5 +1,6 @@
 package in.junctiontech.project;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -34,7 +35,7 @@ import static in.junctiontech.project.PMSOtherConstant.URL_REGISTER;
 public class RegisterActivity extends AppCompatActivity {
 
     private TextInputLayout text_name, text_mobile_no, text_organization_name, text_password;
-    private EditText edit_name, edit_mobile_no, edit_organization_name, edit_password;
+    private EditText edit_name, edit_mobile_no, edit_organization_name, edit_password,edit_employee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
         edit_mobile_no = (EditText) this.findViewById(R.id.register_mobile_no);
         edit_organization_name = (EditText) this.findViewById(R.id.register_organization_name);
         edit_password = (EditText) this.findViewById(R.id.register_password);
+        edit_employee = (EditText) this.findViewById(R.id.register_employee_edit);
     }
 
     @Override
@@ -68,17 +70,18 @@ public class RegisterActivity extends AppCompatActivity {
         final String mobile_no = edit_mobile_no.getText().toString();
         final String password = edit_password.getText().toString();
         final String organization_name = edit_organization_name.getText().toString();
+        final String employeeId = edit_employee.getText().toString();
         boolean checkOrganization=isEmptyOrganization();
 
 
         if(checkOrganization)
         {
             edit_organization_name.requestFocus();
-            edit_organization_name.setError("field cannot be blank");
+            edit_organization_name.setError("Organization Name cannot be blank");
         }
         else if (name.length() == 0) {
             edit_name.requestFocus();
-            edit_name.setError("field cannot be blank");
+            edit_name.setError("name cannot be blank");
         } else if (mobile_no.length() == 0 || mobile_no.length() < 10) {
             edit_mobile_no.requestFocus();
             edit_mobile_no.setError("contain atleast 10 number");
@@ -86,11 +89,16 @@ public class RegisterActivity extends AppCompatActivity {
             edit_password.requestFocus();
             edit_password.setError("between 4 to 10 characters");
         } else {
+            final ProgressDialog pDialog = new ProgressDialog(this);
+            pDialog.setMessage("Connecting...");
+            pDialog.setCancelable(false);
+            pDialog.show();
+
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_REGISTER,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-
+                            pDialog.dismiss();
                             //TODO check success from server
                             if (response.equalsIgnoreCase("true")) {
                                 Log.d("onResponse()", "Success");
@@ -106,6 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.d("onErrorResponse()", "Error");
+                    pDialog.dismiss();
                     String err = error.getMessage();
                     if (error instanceof NoConnectionError) {
                         err = "No Internet Access\nCheck Your Internet Connection.";
@@ -122,7 +131,8 @@ public class RegisterActivity extends AppCompatActivity {
                 protected Map<String, String> getParams() {
                     Map<String, String> param = new LinkedHashMap<>();
                    param.put("registration_info",
-                           new GsonBuilder().create().toJson(new Employee(RegisterActivity.this,name, organization_name, mobile_no, password))) ;
+                           new GsonBuilder().create().toJson(new Employee(RegisterActivity.this,name, organization_name,
+                                   mobile_no, password,employeeId)));
 
                     return param;
                 }

@@ -55,6 +55,7 @@ import static in.junctiontech.project.PMSDataBaseConstant.EMPLOYEE_PROJECT_TASK_
 import static in.junctiontech.project.PMSDataBaseConstant.EMPLOYEE_PROJECT_TASK_LIST_TABLE_NAME;
 import static in.junctiontech.project.PMSDataBaseConstant.EMPLOYEE_PROJECT_TASK_LIST_TASK_ID;
 import static in.junctiontech.project.PMSDataBaseConstant.EMPLOYEE_RECEIPT_DATE;
+import static in.junctiontech.project.PMSDataBaseConstant.EMPLOYEE_RECEIPT_DESCRIPTION;
 import static in.junctiontech.project.PMSDataBaseConstant.EMPLOYEE_RECEIPT_KEY;
 import static in.junctiontech.project.PMSDataBaseConstant.EMPLOYEE_RECEIPT_MATERIAL;
 import static in.junctiontech.project.PMSDataBaseConstant.EMPLOYEE_RECEIPT_QUANTITY;
@@ -173,6 +174,7 @@ public class PMSDatabase extends SQLiteOpenHelper {
                 EMPLOYEE_PROJECT_TASK_LIST_TASK_ID + " TEXT," +
                 EMPLOYEE_RECEIPT_MATERIAL + " TEXT," +
                 EMPLOYEE_RECEIPT_DATE + " TEXT," +
+                EMPLOYEE_RECEIPT_DESCRIPTION + " TEXT," +
                 EMPLOYEE_RECEIPT_RATE + " INTEGER," +
                 EMPLOYEE_RECEIPT_QUANTITY + " INTEGER," +
                 EMPLOYEE_RECEIPT_UNIT + " INTEGER," +
@@ -536,32 +538,53 @@ public class PMSDatabase extends SQLiteOpenHelper {
         boolean check;
         SQLiteDatabase database = super.getWritableDatabase();
         ContentValues contentValue = new ContentValues();
+
         contentValue.put(EMPLOYEE_PROJECT_LIST_PROJECT_ID, receiptData.getProject_id());
         contentValue.put(EMPLOYEE_PROJECT_TASK_LIST_TASK_ID, receiptData.getTask_id());
+        contentValue.put(EMPLOYEE_RECEIPT_STATUS, "pending");
+        contentValue.put(EMPLOYEE_RECEIPT_DESCRIPTION, receiptData.getDescription());
         contentValue.put(EMPLOYEE_RECEIPT_MATERIAL, receiptData.getMaterial());
         contentValue.put(EMPLOYEE_RECEIPT_RATE, receiptData.getRate());
         contentValue.put(EMPLOYEE_RECEIPT_QUANTITY, receiptData.getQuantity());
         contentValue.put(EMPLOYEE_RECEIPT_UNIT, receiptData.getUnit());
         contentValue.put(EMPLOYEE_RECEIPT_DATE, receiptData.getDate());
-        contentValue.put(EMPLOYEE_RECEIPT_KEY, receiptData.getKey());
-        contentValue.put(EMPLOYEE_RECEIPT_STATUS, "pending");
-        if (database.insert(EMPLOYEE_RECEIPT_TABLE_NAME, null, contentValue) != -1) {
-            /*Utility.showToast(context, receiptData.getProject_id() + "\n" + receiptData.getTask_id() + "\n" +
-                            receiptData.getMaterial() + "\n" + receiptData.getRate() + "\n" +
-                            receiptData.getQuantity() + "\n" + receiptData.getUnit() + "\n" + receiptData.getDate() +
-                            "\n" + receiptData.getKey() + "\n" + "pending"
-            );*/
-            check = true;
-            Log.d("setReceiptData()", "Record Inserted");
-            Utility.showToast(context, "Data Inserted Successfully");
-        } else {
-            check = false;
-            Log.d("setReceiptData()", "Record Failure");
-            Utility.showToast(context, "Data Inserted Failure");
-        }
 
+        Cursor cursor = database.rawQuery("SELECT * FROM " + EMPLOYEE_RECEIPT_TABLE_NAME + " where " + EMPLOYEE_RECEIPT_KEY + " = ?",
+                new String[]{receiptData.getKey()});
+
+        int countRecord = cursor.getCount();
+        if (countRecord > 0) {
+            if (database.update(EMPLOYEE_RECEIPT_TABLE_NAME, contentValue, EMPLOYEE_RECEIPT_KEY + "=?", new String[]{receiptData.getKey()}) != 0)
+            {
+                check = true;
+                Log.d("setReceiptData()", "Record Updated Successfully");
+                Utility.showToast(context, "Record Updated Successfully " + receiptData.getKey());
+            }
+
+            else {
+                Log.d("setReceiptData()", "Record Updated Failure");
+                Utility.showToast(context, "Record Updated Failure");
+                check = false;
+            }
+        } else {
+            contentValue.put(EMPLOYEE_RECEIPT_KEY, receiptData.getKey());
+            if (database.insert(EMPLOYEE_RECEIPT_TABLE_NAME, null, contentValue) != -1) {
+                Log.d("setReceiptData()", "Record Inserted");
+                Utility.showToast(context, "Data Inserted Successfully");
+                check = true;
+
+            } else {
+                check = false;
+                Log.d("setReceiptData()", "Record Failure");
+                Utility.showToast(context, "Data Inserted Failure");
+            }
+        }
+        cursor.close();
         database.close();
         return check;
+
+
+
     }
 
     public void flushAllData() {
@@ -594,7 +617,7 @@ public class PMSDatabase extends SQLiteOpenHelper {
 
 
         //  Utility.showToast(context, countRecord + "");
-        List<Task> task_list;
+        List<Task> task_list=null;
 
         if (countRecord > 0) {
             task_list = new ArrayList<>(countRecord);
@@ -605,6 +628,7 @@ public class PMSDatabase extends SQLiteOpenHelper {
 
 
                 Utility.showToast(context, currentTaskId);
+
                 List<Receipt> receipt_list = getReceiptData(currentId, currentTaskId);
 
                 // projectTasks.set(getReceiptData(currentId, cursor.getString(cursor.getColumnIndex(EMPLOYEE_PROJECT_TASK_LIST_TASK_ID))));
@@ -624,6 +648,7 @@ public class PMSDatabase extends SQLiteOpenHelper {
 
 
             }
+        }
             Project project = new Project(currentId);
             List<Expense> expense_list = getExpenseData(currentId, "null");
             project.setExpense_list(expense_list);
@@ -636,12 +661,15 @@ public class PMSDatabase extends SQLiteOpenHelper {
             User user = new User(
                     context.getSharedPreferences("Login", Context.MODE_PRIVATE).getString("user_id", "Not Found")
                     , projectList);
+            SharedPreferences sharedPrefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+            user.setDatabase_name(sharedPrefs.getString("organization_name", "NULL"));
 
             String data = gson.toJson(user);
             Utility.longInfo(data);
             SendProjectData.SendData(context, data);
 
-        }
+
         cursor.close();
         database.close();
 
@@ -822,7 +850,7 @@ public class PMSDatabase extends SQLiteOpenHelper {
                                 EMPLOYEE_EXPENSE_STATUS + " = ?",
                         new String[]{dashBoard.getPid(), dashBoard.getTid(), "success"});
 
-                Utility.showToast(context, count + "/" + total);
+              //  Utility.showToast(context, count + "/" + total);
                 dashBoard.setExpense(count + "/" + total);
 
                 total = DatabaseUtils.queryNumEntries(database,
@@ -888,7 +916,7 @@ public class PMSDatabase extends SQLiteOpenHelper {
                                 EMPLOYEE_EXPENSE_STATUS + " = ?",
                         new String[]{dashBoard.getPid(), dashBoard.getTid(), "success"});
 
-                Utility.showToast(context, count + "/" + total);
+              //  Utility.showToast(context, count + "/" + total);
                 dashBoard.setExpense(count + "/" + total);
 
                 total = DatabaseUtils.queryNumEntries(database,
@@ -983,8 +1011,8 @@ public class PMSDatabase extends SQLiteOpenHelper {
                 );
 
                 expense.setKey(cursor.getString(cursor.getColumnIndex(EMPLOYEE_EXPENSE_KEY)));
-                expense.setKey(cursor.getString(cursor.getColumnIndex(EMPLOYEE_EXPENSE_TYPE)));
-                expense.setKey(cursor.getString(cursor.getColumnIndex(EMPLOYEE_EXPENSE_EXPENSE_TYPE)));
+                expense.setType(cursor.getString(cursor.getColumnIndex(EMPLOYEE_EXPENSE_TYPE)));
+                expense.setExpense_type(cursor.getString(cursor.getColumnIndex(EMPLOYEE_EXPENSE_EXPENSE_TYPE)));
 
             }
         }
@@ -993,6 +1021,108 @@ public class PMSDatabase extends SQLiteOpenHelper {
         return expense;
 
     }
+
+    public List<Receipt> getReceiptList() {
+
+        SQLiteDatabase database = super.getReadableDatabase();
+       /* Cursor cursor = database.rawQuery("SELECT * FROM " + EMPLOYEE_EXPENSE_TABLE_NAME + " ORDER BY date(" + EMPLOYEE_EXPENSE_DATE
+        +") ASC", null);
+*/
+        Cursor cursor = database.query(EMPLOYEE_RECEIPT_TABLE_NAME, null, null, null, null, null,
+
+                EMPLOYEE_PROJECT_LIST_PROJECT_ID + " ASC, "
+                        + EMPLOYEE_PROJECT_TASK_LIST_TASK_ID + " ASC," + // TODO sorting of date
+                        EMPLOYEE_RECEIPT_DATE + " ASC "
+        );
+
+
+        int countRecord = cursor.getCount();
+        List<Receipt> receiptList = null;
+        if (countRecord > 0) {
+            receiptList = new ArrayList<>(countRecord);
+            while (cursor.moveToNext()) {
+                Receipt receipt = new Receipt(
+                        cursor.getString(cursor.getColumnIndex(EMPLOYEE_PROJECT_LIST_PROJECT_ID)),
+                        cursor.getString(cursor.getColumnIndex(EMPLOYEE_PROJECT_TASK_LIST_TASK_ID)),
+                        cursor.getString(cursor.getColumnIndex(EMPLOYEE_RECEIPT_DESCRIPTION)),
+                        cursor.getString(cursor.getColumnIndex(EMPLOYEE_RECEIPT_DATE)),
+                        cursor.getString(cursor.getColumnIndex(EMPLOYEE_RECEIPT_MATERIAL))
+                );
+                receipt.setKey(cursor.getString(cursor.getColumnIndex(EMPLOYEE_RECEIPT_KEY)));
+                receiptList.add(receipt);
+
+            }
+        }
+        cursor.close();
+        database.close();
+        return receiptList;
+
+    }
+
+
+    public Receipt getReceiptDataById(String key) {
+        SQLiteDatabase database = super.getReadableDatabase();
+        Cursor cursor = database.rawQuery("SELECT * FROM " + EMPLOYEE_RECEIPT_TABLE_NAME + " where " + EMPLOYEE_RECEIPT_KEY + " = ?",
+                new String[]{key});
+
+
+        int countRecord = cursor.getCount();
+        Receipt receipt = null;
+        if (countRecord > 0) {
+            while (cursor.moveToNext()) {
+
+                receipt = new Receipt(
+                        cursor.getString(cursor.getColumnIndex(EMPLOYEE_PROJECT_LIST_PROJECT_ID)),
+                        cursor.getString(cursor.getColumnIndex(EMPLOYEE_PROJECT_TASK_LIST_TASK_ID)),
+                        cursor.getString(cursor.getColumnIndex(EMPLOYEE_RECEIPT_DESCRIPTION)),
+                        cursor.getString(cursor.getColumnIndex(EMPLOYEE_RECEIPT_MATERIAL)),
+                        cursor.getString(cursor.getColumnIndex(EMPLOYEE_RECEIPT_QUANTITY)),
+                        cursor.getString(cursor.getColumnIndex(EMPLOYEE_RECEIPT_RATE)),
+                        cursor.getString(cursor.getColumnIndex(EMPLOYEE_RECEIPT_UNIT)),
+                        cursor.getString(cursor.getColumnIndex(EMPLOYEE_RECEIPT_DATE)));
+
+                receipt.setKey(cursor.getString(cursor.getColumnIndex(EMPLOYEE_RECEIPT_KEY)));
+
+            }
+        }
+        cursor.close();
+        database.close();
+        return receipt;
+
+    }
+
+    public void sendAllData() {
+
+
+            List<String> projectIdList = getProjectIDS();
+            if (projectIdList != null) {
+                for (String currentProjectId : projectIdList)
+                    sendDataForParticularId(currentProjectId);
+            } else {
+                Log.d("sync", "project id null");
+                Utility.showToast(context, "There is no project in database");
+            }
+
+
+
+    }
+        public void checkPreference() {
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+            if ((sharedPreferences.getBoolean("sync_data", false))) {
+                sendAllData();
+                Log.d("sync", "net available for sending data");
+                /*List list = getImageData();
+                if (list != null) {
+                    SendEmployeeProjectImages.getInstance(context).sendImageData(list);
+                }
+                else
+                    Utility.showToast(context,"No Image In Database");*/
+
+            }
+
+    }
+
+
 
 
 
@@ -1014,6 +1144,7 @@ public class PMSDatabase extends SQLiteOpenHelper {
     }*/
 
 }
+
 
 
   /*  public void deleteEmployeeRecords(String date, String time) {

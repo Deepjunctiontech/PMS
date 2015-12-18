@@ -11,12 +11,20 @@
             android:key="splash_status"
             android:summary="ON / OFF "
             android:title="Splash Screen" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="sync_data"
+            android:summary="ON / OFF "
+            android:title="Automatic Sync" />
+
         <CheckBoxPreference
             android:id="@+id/admin"
             android:defaultValue="false"
             android:key="device_admin"
             android:summary="ON / OFF "
             android:title="Device Administrator" />
+
 
         <EditTextPreference
             android:id="@+id/organization_name"

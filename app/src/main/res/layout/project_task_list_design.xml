@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_list"
-        android:orientation="horizontal"
-        android:weightSum="100"
-        >
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="120dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="75"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:orientation="vertical">
 
 
             <LinearLayout
@@ -30,44 +25,44 @@
                     android:layout_height="wrap_content"
                     android:text="Project Id - "
                     android:textColor="#006699"
-                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/project_task_projectId"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:textColor="#006699"
-                    android:textSize="18sp"
                     android:textStyle="bold" />
-            </LinearLayout>
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="3dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Task Id - "
                     android:textColor="#006699"
-                    android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/project_task_id"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:textColor="#006699"
-                    android:textSize="17sp"
                     android:textStyle="bold" />
-            </LinearLayout>
 
+                <TextView
+                    android:id="@+id/project_task_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:textColor="#d20e0d"
+                    android:textStyle="bold"
+
+                    />
+
+            </LinearLayout>
 
 
             <Space
@@ -78,50 +73,14 @@
                 android:id="@+id/project_task_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="H. No. 4 Janak Puri Colony Ayodhya ByPass Road BHOPAL"
-                android:textSize="16sp"
-                android:textColor="#000000"/>
-
-
-            <TextView
-                android:id="@+id/project_task_startDate"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
+                android:singleLine="true"
+                android:layout_weight="1"
                 android:textColor="#000000"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                />
 
         </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="25"
-            android:descendantFocusability="blocksDescendants"
-            android:orientation="vertical"
-            android:padding="5dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:text="Status - "
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/project_task_status"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:textColor="#d20e0d"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

@@ -195,7 +195,7 @@
                     android:layout_weight="50"
                     android:gravity="center"
                     android:onClick="selectDate"
-
+                    android:background="?attr/selectableItemBackground"
                     />
 
             </LinearLayout>

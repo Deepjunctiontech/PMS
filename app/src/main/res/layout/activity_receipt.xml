@@ -1,27 +1,39 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="80"
     android:background="@color/background"
-    android:padding="@dimen/activity_horizontal_margin"
-    tools:context="in.junctiontech.project.Receipt"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="in.junctiontech.project.Receipt">
 
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="80"
+    android:orientation="vertical"
+   >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin">
 
             <LinearLayout
 
+                android:id="@+id/receipt1"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/single_line_box"
                 android:background="@drawable/mybox"
                 android:elevation="@dimen/oll_elevation"
-                android:orientation="horizontal"
-                android:id="@+id/receipt1">
+                android:orientation="horizontal">
 
                 <TextView
 
@@ -66,14 +78,13 @@
 
             <LinearLayout
                 android:id="@+id/receipt2"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/single_line_box"
-                android:clipToPadding="false"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
                 android:background="@drawable/mybox"
-                android:orientation="horizontal"
+                android:clipToPadding="false"
                 android:elevation="@dimen/oll_elevation"
-                >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -141,7 +152,7 @@
                     android:layout_weight="50"
                     android:gravity="center"
                     android:onClick="selectDate"
-
+                    android:background="?attr/selectableItemBackground"
                     />
 
             </LinearLayout>
@@ -155,6 +166,22 @@
                 android:elevation="@dimen/oll_elevation"
                 android:orientation="vertical"
                 android:padding="@dimen/oll_padding">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/receipt_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/oll_margin"
+                        android:ems="10"
+                        android:hint="Description"
+
+
+                        />
+                </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -219,18 +246,25 @@
             </LinearLayout>
 
 
+        </LinearLayout>
 
+
+
+
+
+    </LinearLayout>
+
+</ScrollView>
     <Button
+        android:id="@+id/receiptSaving"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SAVE"
-        android:id="@+id/receiptSaving"
-        android:onClick="receiptSaving" />
+        android:background="?attr/selectableItemBackground"
+        android:onClick="receiptSaving"
+        android:text="SAVE" />
 
     <include
-    layout="@layout/footer"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    />
-        </LinearLayout>
-</ScrollView>
+        layout="@layout/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

@@ -77,6 +77,7 @@ interface PMSDataBaseConstant {
     String EMPLOYEE_RECEIPT_UNIT = "employeeReceiptUnit";
     String EMPLOYEE_RECEIPT_DATE = "employeeReceiptDate";
     String EMPLOYEE_RECEIPT_KEY = "employeeReceiptKey";
+    String EMPLOYEE_RECEIPT_DESCRIPTION = "employeeReceiptDescription";
     String EMPLOYEE_RECEIPT_STATUS = "employeeReceiptStatus";
 
 }

@@ -2,7 +2,9 @@ package in.junctiontech.project;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 
 import org.apache.http.HttpEntity;
@@ -107,6 +109,9 @@ public class SendEmployeeProjectImages {
                 entity.addPart("image_name", new FileBody(sourceFile));
                 entity.addPart("project_id", new StringBody(projectId));
                 entity.addPart("task_id", new StringBody(taskId));
+                SharedPreferences sharedPrefs = PreferenceManager
+                        .getDefaultSharedPreferences(context);
+                entity.addPart("database_name",  new StringBody(sharedPrefs.getString("organization_name", "NULL")));
 
                 // Extra parameters if you want to pass to server
 
@@ -195,6 +200,7 @@ public class SendEmployeeProjectImages {
                 current = c;
         } else
            */
+        /*if(ImageSelectionActivity.isActive)*/
         ((ImageSelectionActivity)current).onResume();
 
 

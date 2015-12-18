@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/oll_margin"
                     android:ems="10"
-                    android:hint="Organization Name (optional)"
+                    android:hint="Organization Name"
                     android:inputType="textEmailAddress|textPersonName" />
             </android.support.design.widget.TextInputLayout>
 
@@ -85,6 +85,22 @@
                     android:ems="10"
                     android:hint="Password"
                     android:inputType="textVisiblePassword" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/register_userid_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/register_employee_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/oll_margin"
+                    android:ems="10"
+                    android:hint="Employee Id  ( optional )"
+                    android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
             <LinearLayout

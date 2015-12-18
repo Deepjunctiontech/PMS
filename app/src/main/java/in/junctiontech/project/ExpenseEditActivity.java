@@ -10,9 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import in.junctiontech.project.employeeproject.Expense;
@@ -20,19 +22,28 @@ import in.junctiontech.project.employeeproject.Expense;
 public class ExpenseEditActivity extends AppCompatActivity {
 
     private CustomAdapter customAdapter;
+    private ListView edit_listview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
         referenceInitialization();
-        getSupportActionBar().setTitle("Edit - " + this.getIntent().getStringExtra("ID"));
+
 
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        update();
+    }
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -41,16 +52,21 @@ public class ExpenseEditActivity extends AppCompatActivity {
     }
 
 
-
-    private void referenceInitialization() {
-       ListView edit_listview = (ListView) findViewById(R.id.edit_listView);
+    private void update()
+    {
         PMSDatabase pmsDatabase = PMSDatabase.getInstance(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         List<Expense> expense_list = pmsDatabase.getExpenseList();
 
         if (expense_list != null) {
+            expense_list.add(0, new Expense());
+        }
+        else {
+            expense_list = new ArrayList<>(1);
+            expense_list.add(0, new Expense());
+        }
             if (customAdapter == null) {
                 Log.d("ADAPTER", "CREATED");
+
                 customAdapter = new CustomAdapter(this, expense_list);
                 edit_listview.setAdapter(customAdapter);
             } else {
@@ -59,13 +75,17 @@ public class ExpenseEditActivity extends AppCompatActivity {
                 customAdapter.addAll(expense_list);
                 customAdapter.notifyDataSetChanged();
             }
+            /*edit_listview.setAdapter(new ArrayAdapter<>
+                    (this, android.R.layout.simple_list_item_1, new String[]{"No Expense List In Database"}));*/
 
 
-        } else {
-            edit_listview.setAdapter(new ArrayAdapter<>
-                    (this, android.R.layout.simple_list_item_1, new String[]{"No Expense List In Database"}));
 
-        }
+    }
+
+    private void referenceInitialization() {
+      edit_listview = (ListView) findViewById(R.id.edit_listView);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         edit_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -75,6 +95,10 @@ public class ExpenseEditActivity extends AppCompatActivity {
                 intent.putExtra("PROJECT_ID", expense.getProject_id());
                 intent.putExtra("TASK_ID", expense.getTask_id());
                 intent.putExtra("KEY", expense.getKey());
+                if(expense.getProject_id()!=null)
+                    intent.putExtra("DATA", "Edit");
+                else
+                    intent.putExtra("DATA", "Add");
                 startActivity(intent);
 
              //   Utility.showToast(ExpenseEditActivity.this,((Expense)parent.getItemAtPosition(position)).getDate() );
@@ -123,7 +147,8 @@ public class ExpenseEditActivity extends AppCompatActivity {
                 holder.edit_description = (TextView) convertView.findViewById(R.id.edit_description);
                 holder.edit_date = (TextView) convertView.findViewById(R.id.edit_date);
                 holder.edit_ammount = (TextView) convertView.findViewById(R.id.edit_ammount);
-
+                holder.edit_expense_textview=(TextView) convertView.findViewById(R.id.edit_expense_textview);
+                holder.edit_expense_linearlayout=(LinearLayout) convertView.findViewById(R.id.edit_expense_linearlayout);
 
                 convertView.setTag(holder);
             } else {
@@ -132,11 +157,20 @@ public class ExpenseEditActivity extends AppCompatActivity {
 
 
             Expense expense = expenseList.get(position);
-            holder.edit_projectId.setText(expense.getProject_id());
-            holder.edit_taskId.setText(expense.getTask_id());
-            holder.edit_description.setText(expense.getDescription());
-            holder.edit_date.setText(expense.getDate());
-            holder.edit_ammount.setText(expense.getAmount());
+
+            if(expense.getProject_id()!=null) {
+                holder.edit_expense_textview.setVisibility(View.INVISIBLE);
+                holder.edit_expense_linearlayout.setVisibility(View.VISIBLE);
+                holder.edit_projectId.setText(expense.getProject_id());
+                holder.edit_taskId.setText(expense.getTask_id());
+                holder.edit_description.setText(expense.getDescription());
+                holder.edit_date.setText(expense.getDate());
+                holder.edit_ammount.setText(expense.getAmount());
+            }
+            else {
+                holder.edit_expense_textview.setVisibility(View.VISIBLE);
+                holder.edit_expense_linearlayout.setVisibility(View.INVISIBLE);
+            }
 
 
 
@@ -145,7 +179,8 @@ public class ExpenseEditActivity extends AppCompatActivity {
         }
 
         public class ViewHolder {
-            private TextView edit_projectId, edit_taskId, edit_description, edit_date, edit_ammount;
+            private TextView edit_projectId, edit_taskId, edit_description, edit_date, edit_ammount, edit_expense_textview;
+            private LinearLayout edit_expense_linearlayout;
             // private things are access easily in method of same class
         }
     }

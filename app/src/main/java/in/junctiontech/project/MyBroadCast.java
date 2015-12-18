@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import java.util.List;
+
 import in.junctiontech.project.employee.EmployeeLocation;
 
 /**
@@ -17,15 +19,7 @@ public class MyBroadCast extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, final Intent arg1) {
         //arg1.getPackage()
-        final String action=arg1.getAction();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        final String action=arg1.getAction();    // TODO REMOVE THREADING BECAUSE IT MAY DELAY
 
                 if (action.equals("com.MyService")) {
                     context.startService(new Intent(context, MyService.class));
@@ -52,6 +46,7 @@ public class MyBroadCast extends BroadcastReceiver {
                             Log.v("STATUS", "INTERNET AVAILABLE");
                             if (firstConnect) {
                                 SendEmployeeData.getInstance(context).send();
+                                PMSDatabase.getInstance(context).checkPreference();
                                 firstConnect = false;
                             }
                         } else {
@@ -78,11 +73,6 @@ public class MyBroadCast extends BroadcastReceiver {
                     Log.v("CHECK", action);
                     saveData(context,"SWITCHED OFF");
                 }
-
-
-
-            }
-        }).start();
 
     }
 

@@ -26,6 +26,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import in.junctiontech.project.employeeproject.Expense;
+import in.junctiontech.project.employeeproject.Receipt;
+
 /**
  * Created by Junction Software on 17-Oct-15.
  */
@@ -35,10 +38,11 @@ public class ReceiptActivity extends AppCompatActivity {
     private PMSDatabase pmsDatabase;
     private ArrayAdapter adapterProjectTask;
     private in.junctiontech.project.employeeproject.Receipt receipt;
-    private EditText receipt_quantity, receipt_material, receipt_rate, receipt_unit;
+    private EditText receipt_quantity, receipt_material, receipt_rate, receipt_unit, receipt_description;
     private Calendar calendar;
     private int year, month, day;
     private Button receipt_date;
+    private String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +51,7 @@ public class ReceiptActivity extends AppCompatActivity {
         animation();
         referenceInitialization();
         eventRegistration();
-
+        update();
         //   expenses_spinner_project.setAdapter(new ArrayAdapter<String>(this, R.layout.myspinner_layout, new String[]{"hello", "hi", "tata", "bye"}));
         //expenses_spinner_project.onSaveInstanceState()
 
@@ -62,7 +66,36 @@ public class ReceiptActivity extends AppCompatActivity {
 
     }
 
+    protected void update() {
+        //
+        key= this.getIntent().getStringExtra("KEY");
+        if(key!=null) {
+            Receipt receipt = pmsDatabase.getReceiptDataById(key);
+            if (receipt != null) {
+            /*expense.getProject_id();
+            expense.getTask_id();*/
+
+
+                receipt_spinner_project.setEnabled(false);
+                receipt_spinner_task.setEnabled(false);
+                receipt_date.setText(receipt.getDate());
+                receipt_quantity.setText(receipt.getQuantity());
+                receipt_material.setText(receipt.getMaterial());
+                receipt_rate.setText(receipt.getRate());
+                receipt_unit.setText(receipt.getUnit());
+                receipt_description.setText(receipt.getDescription());
+            }
+        }
+
+
+    }
+
     private void referenceInitialization() {
+        String title = this.getIntent().getStringExtra("DATA");
+        if ("Edit".equalsIgnoreCase(title))
+            getSupportActionBar().setTitle("Edit - Receipt");
+        else
+            getSupportActionBar().setTitle("New - Receipt");
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
@@ -76,6 +109,8 @@ public class ReceiptActivity extends AppCompatActivity {
         receipt_quantity = (EditText) findViewById(R.id.receipt_quantity);
         receipt_rate = (EditText) findViewById(R.id.receipt_rate);
         receipt_unit = (EditText) findViewById(R.id.receipt_unit);
+        receipt_description= (EditText) findViewById(R.id.receipt_description);
+
 
         receipt = new in.junctiontech.project.employeeproject.Receipt();
         pmsDatabase = PMSDatabase.getInstance(this);
@@ -215,15 +250,20 @@ public class ReceiptActivity extends AppCompatActivity {
 
 
         if (!"null".equalsIgnoreCase(receipt.getProject_id()) && !isEmptyMaterial() && !isEmptyQuantity()) {
+            receipt.setDescription(receipt_description.getText().toString());
             receipt.setQuantity(receipt_quantity.getText().toString());
             receipt.setMaterial(receipt_material.getText().toString());
             receipt.setRate(receipt_rate.getText().toString());
             receipt.setUnit(receipt_unit.getText().toString());
             receipt.setDate(receipt_date.getText().toString());
-            receipt.setKey("USER_ID=" +
-                    getSharedPreferences("Login", MODE_PRIVATE).getString("user_id", "Not Found")
-                    + "," + "PROJECT_ID=" + receipt.getProject_id() + "," + "TASK_ID=" + receipt.getTask_id() + "," +
-                    (new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date())));
+            if(key==null)
+                 receipt.setKey("USER_ID=" +
+                         getSharedPreferences("Login", MODE_PRIVATE).getString("user_id", "Not Found")
+                         + "," + "PROJECT_ID=" + receipt.getProject_id() + "," + "TASK_ID=" + receipt.getTask_id() + "," +
+                         (new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date())));
+
+            else
+                receipt.setKey(key);
 
             if(pmsDatabase.setReceiptData(receipt))
                 finish();

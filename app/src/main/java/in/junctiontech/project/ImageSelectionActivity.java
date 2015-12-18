@@ -39,7 +39,7 @@ import static in.junctiontech.project.PMSOtherConstant.IMAGE_DIRECTORY_NAME_THUM
 
 public class ImageSelectionActivity extends AppCompatActivity {
 
-
+    static boolean isActive = false;
     private static final int CONSTANT_IMAGE = 1000;
     private GridView gv;
 
@@ -67,6 +67,18 @@ public class ImageSelectionActivity extends AppCompatActivity {
     private ImageView fab_image_button;
     private ArrayAdapter adapterProjectTask;
     private ImageGridAdapter imageGridAdapter;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        isActive = true;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isActive = false;
+    }
 
 
     @Override
@@ -198,6 +210,8 @@ public class ImageSelectionActivity extends AppCompatActivity {
             SendEmployeeProjectImages sendEmployeeProjectImages = SendEmployeeProjectImages.getInstance(this);
             sendEmployeeProjectImages.sendImageData(list);
         }
+        else
+        Utility.showToast(this,"No Image In Database");
     }
 
     @Override

@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ import android.view.animation.AlphaAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.File;
@@ -34,17 +36,31 @@ import static in.junctiontech.project.PMSOtherConstant.IMAGE_DIRECTORY_NAME_THUM
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static Context c;
     private Toolbar tb;
     private NavigationView navi;
     private DrawerLayout dl;
     private ActionBarDrawerToggle abdt;
     private static boolean checked;
     private PMSDatabase pmsDatabase;
-    //  private ListView lv_for_dashbaord;
+    private ListView lv_for_dashbaord;
     private CustomAdapter customAdapter;
     private AlphaAnimation alphaDown, alphaUp;
-    private Button project, expense, receipt;
-    private ImageButton task;
+    static boolean isActive = false;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        isActive = true;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isActive = false;
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,18 +76,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         abdt.syncState();
         dl.openDrawer(GravityCompat.START);
         pmsDatabase = PMSDatabase.getInstance(this);
-        alphaDown = new AlphaAnimation(1.0f, 0.3f);
+        c=this;
+       /* alphaDown = new AlphaAnimation(1.0f, 0.3f);
         alphaUp = new AlphaAnimation(0.2f, 1.0f);
         alphaDown.setDuration(200);
-        alphaUp.setDuration(1000);
+        alphaUp.setDuration(1000);*/
 
-
-        project = (Button) findViewById(R.id.projects_dashboard);
-        task = (ImageButton) findViewById(R.id.tasks_dashboard);
-        expense = (Button) findViewById(R.id.expenses_dashboard);
-        receipt = (Button) findViewById(R.id.receipts_dashboard);
-
-        //   lv_for_dashbaord = (ListView) findViewById(R.id.lv_for_dashboard);
+           lv_for_dashbaord = (ListView) findViewById(R.id.lv_for_dashboard);
     }
 
     @Override
@@ -121,10 +132,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 }*/
                 break;
             case R.id.expense:
-                startActivity(new Intent(this, ExpenseActivity.class));
+                startActivity(new Intent(this, ExpenseEditActivity.class));
                 break;
             case R.id.receipt:
-                startActivity(new Intent(this, ReceiptActivity.class));
+                startActivity(new Intent(this, ReceiptEditActivity.class));
                 break;
             case R.id.logout:
                /* getSharedPreferences("Login", MODE_PRIVATE).edit().clear().commit();
@@ -139,6 +150,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(this, SettingActivity.class));
                 break;
 
+            case R.id.sync:
+                pmsDatabase.sendAllData();
+                navi.getMenu().getItem(0).setChecked(true);
+                break;
+
         }
 
         return false;
@@ -148,7 +164,33 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         super.onResume();
         // dl.openDrawer(GravityCompat.START);
         navi.getMenu().getItem(0).setChecked(true);
-        updateTable("projects");
+        updateTable();
+    }
+
+    public void updateTable() {
+        List<DashBoard> dashBoards;
+        dashBoards = pmsDatabase.getDashBoardProjectData();
+        if (dashBoards != null) {
+            List<DashBoard> dashBoardTask=pmsDatabase.getDashBoardTaskData();
+            if(dashBoardTask!=null)
+                dashBoards.addAll(dashBoardTask);
+            if (customAdapter == null) {
+                Log.d("ADAPTER", "CREATED");
+                customAdapter = new CustomAdapter(this, dashBoards);
+                lv_for_dashbaord.setAdapter(customAdapter);
+            } else {
+                Log.d("ADAPTER", "MODIFIED");
+                customAdapter.clear();
+                customAdapter.addAll(dashBoards);
+                customAdapter.notifyDataSetChanged();
+            }
+
+
+        } else {
+            lv_for_dashbaord.setAdapter(new ArrayAdapter<>
+                    (this, android.R.layout.simple_list_item_1, new String[]{"Currently Not Available"}));
+
+        }
     }
 
     private void alert() {
@@ -199,71 +241,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
     }
-
-    public void updateTable(String status) {
-    /*    List<DashBoard> dashBoards;
-        if("projects".equalsIgnoreCase(status))
-            dashBoards= pmsDatabase.getDashBoardProjectData();
-        else
-            dashBoards= pmsDatabase.getDashBoardTaskData();
-
-        if (dashBoards != null) {
-            if (customAdapter == null) {
-                Log.d("ADAPTER", "CREATED");
-                customAdapter = new CustomAdapter(this, dashBoards);
-                lv_for_dashbaord.setAdapter(customAdapter);
-            } else {
-                Log.d("ADAPTER", "MODIFIED");
-                customAdapter.clear();
-                customAdapter.addAll(dashBoards);
-                customAdapter.notifyDataSetChanged();
-            }
-
-
-        } else {
-            lv_for_dashbaord.setAdapter(new ArrayAdapter<>
-                    (this, android.R.layout.simple_list_item_1, new String[]{"Currently Not Available"}));
-
-        }*/
+    public static Context getContext() {
+        return c;
     }
-
-
-    private View v = null;
-
-
-    public void onClick(View view) {
-      /*  alphaDown.cancel();
-        alphaDown.reset();
-
-      */
-        if (v != null) {
-            v.clearAnimation();
-        }
-        v = view;
-
-
-        switch (view.getId()) {
-            case R.id.projects_dashboard:
-                project.startAnimation(alphaUp);
-                startActivity(new Intent(this, DashboardActivity.class).putExtra("ID","Project"));
-                break;
-            case R.id.tasks_dashboard:
-                task.startAnimation(alphaUp);
-                startActivity(new Intent(this, DashboardActivity.class).putExtra("ID", "Task"));
-                break;
-            case R.id.expenses_dashboard:
-                expense.startAnimation(alphaUp);
-                startActivity(new Intent(this, ExpenseEditActivity.class).putExtra("ID", "Expense"));
-                break;
-            case R.id.receipts_dashboard:
-                receipt.startAnimation(alphaUp);
-                startActivity(new Intent(this, ExpenseEditActivity.class).putExtra("ID", "Receipt"));
-                break;
-        }
-
-
-    }
-
     class CustomAdapter extends ArrayAdapter<DashBoard> {
         private List<DashBoard> dashBoards;
         private Context context;
@@ -331,6 +311,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+
+
     public void setListView(View v) {
       /* if( v.getId()==R.id.dashboard_projects)
        {
@@ -340,6 +322,70 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
        {
            updateTable("tasks");
        }*/
+    }
+
+    // private View v = null;  //   FOR BUTTON CLICK ANIMATION USED IN ONCLICK
+
+    public void onClick(View view) {
+
+/*  alphaDown.cancel();
+        alphaDown.reset();
+
+      *//*
+
+        if (v != null) {
+            v.clearAnimation();
+        }
+        v = view;
+
+
+        switch (view.getId()) {
+            case R.id.projects_dashboard:
+                project.startAnimation(alphaUp);
+                startActivity(new Intent(this, DashboardActivity.class).putExtra("ID","Project"));
+                break;
+            case R.id.tasks_dashboard:
+                task.startAnimation(alphaUp);
+                startActivity(new Intent(this, DashboardActivity.class).putExtra("ID", "Task"));
+                break;
+            case R.id.expenses_dashboard:
+                expense.startAnimation(alphaUp);
+                startActivity(new Intent(this, ExpenseEditActivity.class).putExtra("ID", "Expense"));
+                break;
+            case R.id.receipts_dashboard:
+                receipt.startAnimation(alphaUp);
+                startActivity(new Intent(this, ReceiptEditActivity.class).putExtra("ID", "Receipt"));
+                break;
+        }
+
+*/
+    }
+
+    public void updateTable(String status) {
+    /*    List<DashBoard> dashBoards;
+        if("projects".equalsIgnoreCase(status))
+            dashBoards= pmsDatabase.getDashBoardProjectData();
+        else
+            dashBoards= pmsDatabase.getDashBoardTaskData();
+
+        if (dashBoards != null) {
+            if (customAdapter == null) {
+                Log.d("ADAPTER", "CREATED");
+                customAdapter = new CustomAdapter(this, dashBoards);
+                lv_for_dashbaord.setAdapter(customAdapter);
+            } else {
+                Log.d("ADAPTER", "MODIFIED");
+                customAdapter.clear();
+                customAdapter.addAll(dashBoards);
+                customAdapter.notifyDataSetChanged();
+            }
+
+
+        } else {
+            lv_for_dashbaord.setAdapter(new ArrayAdapter<>
+                    (this, android.R.layout.simple_list_item_1, new String[]{"Currently Not Available"}));
+
+        }*/
     }
 
 

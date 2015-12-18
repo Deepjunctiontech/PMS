@@ -46,8 +46,10 @@ public class TaskActivity extends AppCompatActivity {
             customAdapter = new CustomAdapter(TaskActivity.this, task_list);
             lv.setAdapter(customAdapter);
 
-        } else
+        } else {
             Utility.showToast(TaskActivity.this, "No Task Found");
+            finish();
+        }
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -101,7 +103,7 @@ public class TaskActivity extends AppCompatActivity {
                 holder.taskId = (TextView) convertView.findViewById(R.id.project_task_id);
                 holder.description = (TextView) convertView.findViewById(R.id.project_task_description);
                 holder.status = (TextView) convertView.findViewById(R.id.project_task_status);
-                holder.startDate = (TextView) convertView.findViewById(R.id.project_task_startDate);
+                //holder.startDate = (TextView) convertView.findViewById(R.id.project_task_startDate);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
@@ -113,7 +115,7 @@ public class TaskActivity extends AppCompatActivity {
             holder.taskId.setText(task.getTask_id());
             holder.description.setText(task.getDescription());
             holder.status.setText(task.getStatus());
-            holder.startDate.setText(task.getStart_date());
+          //  holder.startDate.setText(task.getStart_date());
 
 
             return convertView;

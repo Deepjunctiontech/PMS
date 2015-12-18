@@ -2,7 +2,9 @@ package in.junctiontech.project;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -26,6 +28,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.apache.http.entity.mime.content.StringBody;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -147,10 +150,12 @@ public class ProjectActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> param = new LinkedHashMap<>();
-              /*  param.put("registration_info",
-                        new GsonBuilder().create().toJson(new Employee(ProjectActivity.this,name, organization_name, mobile_no, password))) ;
-                   TODO this will help at server when project list fetch every time according to id, password, and organization.
-            */
+                SharedPreferences sharedPrefs = PreferenceManager
+                        .getDefaultSharedPreferences(ProjectActivity.this);
+                param.put("database_name",sharedPrefs.getString("organization_name", "NULL"));
+                     /*   new GsonBuilder().create().toJson(new Employee(ProjectActivity.this,name, organization_name, mobile_no, password))) ;
+                   TODO this will help at server when project list fetch every time according to id, password, and organization.*/
+
                 return param;
             }
 
@@ -242,7 +247,7 @@ public class ProjectActivity extends AppCompatActivity {
                 viewHolder.id = (TextView) convertView.findViewById(R.id.project_id);
                 viewHolder.description = (TextView) convertView.findViewById(R.id.project_description);
                 viewHolder.status = (TextView) convertView.findViewById(R.id.project_status);
-                viewHolder.startDate = (TextView) convertView.findViewById(R.id.project_startDate);
+                //viewHolder.startDate = (TextView) convertView.findViewById(R.id.project_startDate);
                 convertView.setTag(viewHolder);
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
@@ -251,7 +256,7 @@ public class ProjectActivity extends AppCompatActivity {
             viewHolder.id.setText(project.getProject_id());
             viewHolder.description.setText(project.getDescription());
             viewHolder.status.setText(project.getStatus());
-            viewHolder.startDate.setText(project.getStart_date());
+           // viewHolder.startDate.setText(project.getStart_date());
 
             /*if (convertView == null) {
                 inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
