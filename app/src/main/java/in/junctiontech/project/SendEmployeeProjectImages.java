@@ -200,22 +200,23 @@ public class SendEmployeeProjectImages {
                 current = c;
         } else
            */
-        /*if(ImageSelectionActivity.isActive)*/
-        ((ImageSelectionActivity)current).onResume();
+        if (ImageSelectionActivity.isActive) {
+            ((ImageSelectionActivity) current).onResume();
 
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(current);
-        builder.setMessage(message).setTitle("Response from Servers")
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(current);
+            builder.setMessage(message).setTitle("Response from Servers")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
 
 
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
 
+        }
     }
 }
     class AndroidMultiPartEntity extends MultipartEntity

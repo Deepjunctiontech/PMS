@@ -31,6 +31,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import in.junctiontech.project.employeeproject.Expense;
 import in.junctiontech.project.image.ImageSelection;
 
 import static in.junctiontech.project.PMSOtherConstant.IMAGE_DIRECTORY_NAME_MEDIUM;
@@ -100,18 +101,16 @@ public class ImageSelectionActivity extends AppCompatActivity {
         image_spinner_projectId = (Spinner) findViewById(R.id.image_spinner_projectId);
 
 
-
-
         String selectedProjectId = this.getIntent().getStringExtra("PROJECT_ID");
         List<String> projectListIDS = pmsDatabase.getProjectIDS();
         projectListIDS = (projectListIDS != null) ? projectListIDS : new ArrayList<String>(1);
         projectListIDS.add(0, "null");
-            fab_image_button.setVisibility(View.VISIBLE);
-            ArrayAdapter<String> adapterProject = new ArrayAdapter(this, R.layout.myspinner_layout, projectListIDS);
-            adapterProject.setDropDownViewResource(R.layout.myspinner_dropdown_item);
+        fab_image_button.setVisibility(View.VISIBLE);
+        ArrayAdapter<String> adapterProject = new ArrayAdapter(this, R.layout.myspinner_layout, projectListIDS);
+        adapterProject.setDropDownViewResource(R.layout.myspinner_dropdown_item);
 
-            image_spinner_projectId.setAdapter(adapterProject);
-            image_spinner_projectId.setSelection(adapterProject.getPosition(selectedProjectId));
+        image_spinner_projectId.setAdapter(adapterProject);
+        image_spinner_projectId.setSelection(adapterProject.getPosition(selectedProjectId));
         //updateGridView();
 
     }
@@ -146,7 +145,8 @@ public class ImageSelectionActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (view != null) {
                     imageSelection.setProject_id(parent.getItemAtPosition(position) + "");
-                        populateDataForTaskList(imageSelection.getProject_id());
+                    populateDataForTaskList(imageSelection.getProject_id());
+                    updateGridView();
                 }
             }
 
@@ -155,21 +155,22 @@ public class ImageSelectionActivity extends AppCompatActivity {
             }
         });
 
-            image_spinner_taskId.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        image_spinner_taskId.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
 
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    if (view != null)
-                        imageSelection.setTask_id(parent.getItemAtPosition(position) + "");
-                    //    Utility.showToast(ImageSelectionActivity.this, list_of_tasks[position]);
-                }
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (view != null)
+                    imageSelection.setTask_id(parent.getItemAtPosition(position) + "");
+                //    Utility.showToast(ImageSelectionActivity.this, list_of_tasks[position]);
+                updateGridView();
+            }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-                }
-            });
+            }
+        });
 
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -178,6 +179,16 @@ public class ImageSelectionActivity extends AppCompatActivity {
 
             }
         });
+
+        gv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                ImageSelection imageSelection = imageGridAdapter.getItem(position);
+                Utility.showToast(ImageSelectionActivity.this, "Project Id=" + imageSelection.getProject_id() + "\nTask Id=" + imageSelection.getTask_id());
+                return true;
+            }
+        });
+
     }
 
 
@@ -195,10 +206,10 @@ public class ImageSelectionActivity extends AppCompatActivity {
 
 
     public void fabClick(View v) {
-        if(!"null".equalsIgnoreCase(imageSelection.getProject_id()))
-        captureImage();
-            else
-            Utility.showToast(this,"Please select project id");
+        if (!"null".equalsIgnoreCase(imageSelection.getProject_id()))
+            captureImage();
+        else
+            Utility.showToast(this, "Please select project id");
 
 
     }
@@ -209,9 +220,8 @@ public class ImageSelectionActivity extends AppCompatActivity {
             //  Utility.showToast(this, "Send:" + list.size());
             SendEmployeeProjectImages sendEmployeeProjectImages = SendEmployeeProjectImages.getInstance(this);
             sendEmployeeProjectImages.sendImageData(list);
-        }
-        else
-        Utility.showToast(this,"No Image In Database");
+        } else
+            Utility.showToast(this, "No Image In Database");
     }
 
     @Override
@@ -329,7 +339,7 @@ public class ImageSelectionActivity extends AppCompatActivity {
                 "USER_ID=" +
                 getSharedPreferences("Login", MODE_PRIVATE).getString("user_id", "Not Found")
                 + "," + "PROJECT_ID=" + imageSelection.getProject_id() + "," + "TASK_ID=" + imageSelection.getTask_id() + "," + timeStamp + ".jpg";
-        Utility.showToast(this,path);
+        Utility.showToast(this, path);
         mediaFile = new File(mediaStorageDir.getPath() + path);
 
         return mediaFile;
@@ -373,11 +383,20 @@ public class ImageSelectionActivity extends AppCompatActivity {
     }
 
     private void updateGridView() {
-        List list = pmsDatabase.getImageData();
-        if (list != null) {
-            imageGridAdapter = new ImageGridAdapter(ImageSelectionActivity.this, list);
-            gv.setAdapter(imageGridAdapter);
+        String currentProjectId = imageSelection.getProject_id();
+        String currentTaskId = imageSelection.getTask_id();
+        if(currentProjectId==null)
+            currentProjectId="null";
+        if(currentTaskId==null)
+            currentTaskId="null";
+
+
+        List list = pmsDatabase.getImageData(currentProjectId,currentTaskId);
+        if (list == null) {
+            list=new ArrayList<>(1);
         }
+        imageGridAdapter = new ImageGridAdapter(ImageSelectionActivity.this, list);
+        gv.setAdapter(imageGridAdapter);
 
     }
 

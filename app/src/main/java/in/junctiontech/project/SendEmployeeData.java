@@ -59,7 +59,7 @@ public class SendEmployeeData {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Utility.showToast(context, response);  // TODO RESPONSE IS NULL FROM SERVER
+                //        Utility.showToast(context, response);  // TODO RESPONSE IS NULL FROM SERVER
                         //TODO check success from server
                        /* if (response.equalsIgnoreCase("true")) {
                             Log.d("onResponse()", "Success");

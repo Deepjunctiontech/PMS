@@ -484,6 +484,33 @@ public class PMSDatabase extends SQLiteOpenHelper {
         return imageSelections;
     }
 
+    public List<ImageSelection> getImageData(String projectId, String taskId) {
+        SQLiteDatabase database = super.getReadableDatabase();
+
+        Cursor cursor = database.rawQuery("SELECT * FROM " + EMPLOYEE_PROJECT_TASK_IMAGE_LIST_TABLE_NAME +
+                " where " + EMPLOYEE_PROJECT_LIST_PROJECT_ID + " = ? AND " + EMPLOYEE_PROJECT_TASK_LIST_TASK_ID
+                        + " = ?",
+                new String[]{projectId, taskId});
+        // not filter according to status because its used in image displaying
+        int countRecord = cursor.getCount();
+        List<ImageSelection> imageSelections = null;
+        if (countRecord > 0) {
+            imageSelections = new ArrayList<>(countRecord);
+            while (cursor.moveToNext()) {
+                ImageSelection imageSelection = new ImageSelection(cursor.getString(cursor.getColumnIndex(EMPLOYEE_PROJECT_LIST_PROJECT_ID)),
+                        cursor.getString(cursor.getColumnIndex(EMPLOYEE_PROJECT_TASK_LIST_TASK_ID)),
+                        cursor.getString(cursor.getColumnIndex(EMPLOYEE_PROJECT_TASK_IMAGE_LOCATION)),
+                        cursor.getString(cursor.getColumnIndex(EMPLOYEE_PROJECT_TASK_IMAGE_STATUS)));
+
+                imageSelections.add(imageSelection);
+
+            }
+        }
+        cursor.close();
+        database.close();
+        return imageSelections;
+    }
+
     public boolean setExpenseData(in.junctiontech.project.employeeproject.Expense expenseData) {
         boolean check;
         SQLiteDatabase database = super.getWritableDatabase();
@@ -694,7 +721,8 @@ public class PMSDatabase extends SQLiteOpenHelper {
                         cursor.getString(cursor.getColumnIndex(EMPLOYEE_RECEIPT_RATE)),
                         cursor.getString(cursor.getColumnIndex(EMPLOYEE_RECEIPT_UNIT)),
                         cursor.getString(cursor.getColumnIndex(EMPLOYEE_RECEIPT_DATE)),
-                        cursor.getString(cursor.getColumnIndex(EMPLOYEE_RECEIPT_KEY)));
+                        cursor.getString(cursor.getColumnIndex(EMPLOYEE_RECEIPT_KEY)),
+                        cursor.getString(cursor.getColumnIndex(EMPLOYEE_RECEIPT_DESCRIPTION)));
 
                 receipt_list.add(receipt);
 

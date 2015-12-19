@@ -18,13 +18,14 @@ public class Receipt extends Task {
         this.date = date;
     }
 
-    public Receipt(String material, String quantity, String rate, String unit, String date, String key) {
+    public Receipt(String material, String quantity, String rate, String unit, String date, String key, String description) {
         this.date = date;
         this.material = material;
         this.quantity = quantity;
         this.rate = rate;
         this.unit = unit;
         this.key = key;
+        this.description=description;
     }
 
     public Receipt() {
