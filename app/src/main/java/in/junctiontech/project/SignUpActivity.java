@@ -1,6 +1,5 @@
 package in.junctiontech.project;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,7 +9,6 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -62,9 +60,9 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void submit(View v) {
         if (v.getId() == R.id.btn_login) {
-           submit();
-           //  startActivity(new Intent(SignUpActivity.this, HomeActivity.class));
-           // finish();
+          // submit();
+            startActivity(new Intent(SignUpActivity.this, HomeActivity.class));
+            finish();
         } else
             startActivity(new Intent(this, RegisterActivity.class));
     }
